@@ -1,0 +1,11 @@
+{
+  "name": "Wanderer",
+  "version": "0.1.0",
+  "description": "A terminal-based open world game",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joe Pfeiffer",
+  "license": "ISC"
+}
