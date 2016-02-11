@@ -20,9 +20,29 @@ module.exports = function() {
       //}
       //worldArray.push(column);
     }
+    worldArray.push({
+      type: 1,
+      x: 2,
+      y: 2,
+      gravity: true
+    });
+    //TODO: Attatch utility methods to worldArray here;
+    worldArray.getBlock = getBlock;
     return worldArray;
   }
   return {
     genTerrain: genTerrain
   };
+};
+
+
+function getBlock(x, y) {                          
+  var self = this;                                 
+  for (var i = 0; i < this.length; i++) {          
+    var item = self[i];                            
+    if (item.x == x && item.y == y) {              
+      return item;
+    }       
+  }         
+  return null;
 };

@@ -1,12 +1,12 @@
 var terrainGen = require('./modules/terrainGen')(),
-    renderer = require('./modules/renderer');
+    renderer = require('./modules/renderer'),
+    gameEngine = require('./modules/gameEngine');
 
-console.log(require('./modules/terrainGen'));
-var world = terrainGen.genTerrain();
-console.dir(world);
-var renderer = new renderer(world);
+//var world = terrainGen.genTerrain();
+//console.dir(world);
+var renderer = new renderer(terrainGen.genTerrain);
 
-
+var gameEngine = new gameEngine(renderer.worldArray);
 
 
 
