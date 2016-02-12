@@ -9,11 +9,17 @@ module.exports = function(genTerrain) {
   var self = this;
 
   program.clear();
+  program.alternateBuffer();
 
   program.key('d', function() {
     if (self.playerControls != undefined) {
-      playerControls.moveRight();
-      console.log('key pressed');
+      self.playerControls.moveRight();
+    }
+  });
+  
+  program.key('a', function() {
+    if (self.playerControls != undefined) {
+      self.playerControls.moveLeft();
     }
   });
   

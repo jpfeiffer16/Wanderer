@@ -18,26 +18,26 @@ module.exports = function(worldArray) {
     }
   };
   self.playerControls = {
-    moveLeft: function() {
-      var oneBlockEmpty = worldArray.getBlock(player.x + 1, player.y) == null;
+    moveRight: function() {
+      var oneBlockEmpty = worldArray.getBlock(self.player.x + 1, self.player.y) == null;
       var twoBlocksEmpty = oneBlockEmpty && 
-        (worldArray.getBlock(player.x + 1, player.y + 1));
+        (worldArray.getBlock(self.player.x + 1, self.player.y + 1) == null);
       if (twoBlocksEmpty) {
-        player.x++;  
+        self.player.x++;  
       } else if (oneBlockEmpty) {
-        player.x++;
-        player.y--;
+        self.player.x++;
+        self.player.y--;
       }
     },
-    moveRight: function() {
-      var oneBlockEmpty = worldArray.getBlock(player.x - 1, player.y) == null;
+    moveLeft: function() {
+      var oneBlockEmpty = worldArray.getBlock(self.player.x - 1, self.player.y) == null;
       var twoBlocksEmpty = oneBlockEmpty && 
-        (worldArray.getBlock(player.x - 1, player.y + 1));
+        (worldArray.getBlock(self.player.x - 1, self.player.y + 1) == null);
       if (twoBlocksEmpty) {
-        player.x--;  
+        self.player.x--;  
       } else if (oneBlockEmpty) {
-        player.x--;
-        player.y--;
+        self.player.x--;
+        self.player.y--;
       }
     }
   };
