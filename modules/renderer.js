@@ -20,12 +20,12 @@ module.exports = function(genTerrain) {
           program.move(item._x, item._y);
           program.write(' ');
         }
-        if (item.type = 1) { 
+        if (item.type == 1) { 
           program.move(item.x, item.y);
           program.write('█');
           item.changed = false;
         }
-        if (item.type = 0) {
+        if (item.type == 0) {
           program.move(item.x, item.y);
           program.write('x');
           program.move(item.x, item.y + 1);

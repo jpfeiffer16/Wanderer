@@ -30,7 +30,7 @@ module.exports = (function() {
       var self = this;
       for (var i = 0; i < this.length; i++) {
         var item = self[i];
-        if (item.type = 0) {
+        if (item.type == 0) {
           return item;
         }
       }
