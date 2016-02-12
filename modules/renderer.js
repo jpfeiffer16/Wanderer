@@ -9,6 +9,13 @@ module.exports = function(genTerrain) {
   var self = this;
 
   program.clear();
+
+  program.key('d', function() {
+    if (self.playerControls != undefined) {
+      playerControls.moveRight();
+      console.log('key pressed');
+    }
+  });
   
   self.render = function() {
     for (var i = 0; i < worldArray.length; i++) {

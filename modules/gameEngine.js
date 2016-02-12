@@ -10,7 +10,7 @@ module.exports = function(worldArray) {
       var item = worldArray[i];
       //Gravity
       if (item.gravity) {
-        if (worldArray.getBlock(item.x, item.y + 1) == null && item.y < 40) {
+        if (worldArray.getBlock(item.x, item.y + item.height) == null) {
           item.changed = true;
           item.y++;
         }

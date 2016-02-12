@@ -11,7 +11,9 @@ module.exports = function() {
           // gravity: true,
           type: 1,
           x: i,
-          y: (rows - j) - 1
+          y: (rows - j) - 1,
+          height: 1,
+          width: 1
         };
         worldArray.push(item);
       }
