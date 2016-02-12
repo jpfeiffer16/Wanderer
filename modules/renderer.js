@@ -8,9 +8,7 @@ module.exports = function(genTerrain) {
   var worldArray = genTerrain(program.rows, program.columns);
   var self = this;
 
-
   program.clear();
-  //program.alternateBuffer();
   
   self.render = function() {
     for (var i = 0; i < worldArray.length; i++) {
@@ -22,10 +20,17 @@ module.exports = function(genTerrain) {
           program.move(item._x, item._y);
           program.write(' ');
         }
-        
-        program.move(item.x, item.y);
-        program.write('█');
-        item.changed = false;
+        if (item.type = 1) { 
+          program.move(item.x, item.y);
+          program.write('█');
+          item.changed = false;
+        }
+        if (item.type = 0) {
+          program.move(item.x, item.y);
+          program.write('x');
+          program.move(item.x, item.y + 1);
+          program.write('"');
+        }
       }
       item._x = item.x;
       item._y = item.y;
@@ -35,7 +40,7 @@ module.exports = function(genTerrain) {
   self.worldArray = worldArray;
   
   self.autoRender = function () {
-    setInterval(self.render, 300);
+    setInterval(self.render, 50);
   }
 
 };

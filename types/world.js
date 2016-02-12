@@ -17,10 +17,20 @@ module.exports = (function() {
   
   World.prototype = {
     getBlock:  function(x, y) {
-      var self = this;                                 
+      var self = this;
       for (var i = 0; i < this.length; i++) {          
         var item = self[i];                            
         if (item.x == x && item.y == y) {              
+          return item;
+        }
+      }
+      return null;
+    },
+    getPlayer: function() {
+      var self = this;
+      for (var i = 0; i < this.length; i++) {
+        var item = self[i];
+        if (item.type = 0) {
           return item;
         }
       }
