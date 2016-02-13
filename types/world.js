@@ -35,7 +35,22 @@ module.exports = (function() {
         }
       }
       return null;
-    }
+    },
+    deleteBlock: function(x, y) {
+      var self = this;
+      var index = null;
+      for (var i = 0; i < this.length; i++) {          
+        var item = self[i];                            
+        if (item.x == x && item.y == y) {              
+          index = i;
+          break;
+        }
+      }
+      if (index != null) {
+        self.splice(index, 1);
+      }
+    },
+    refreshScreen: false
   }
   return (World);
 }).call({});

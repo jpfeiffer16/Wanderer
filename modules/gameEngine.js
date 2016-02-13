@@ -4,7 +4,7 @@ module.exports = function(worldArray) {
   if (worldArray.getPlayer() == null)
     throw 'Error: No player found in specified world';
   var self = this;
-  self.player = worldArray.getPlayer();
+  var player = worldArray.getPlayer();
   self.loop = function() {
     for (var i = 0; i < worldArray.length; i ++) {
       var item = worldArray[i];
@@ -19,26 +19,36 @@ module.exports = function(worldArray) {
   };
   self.playerControls = {
     moveRight: function() {
-      var oneBlockEmpty = worldArray.getBlock(self.player.x + 1, self.player.y) == null;
+      var oneBlockEmpty = worldArray.getBlock(player.x + 1, player.y) == null;
       var twoBlocksEmpty = oneBlockEmpty && 
-        (worldArray.getBlock(self.player.x + 1, self.player.y + 1) == null);
+        (worldArray.getBlock(player.x + 1, player.y + 1) == null);
       if (twoBlocksEmpty) {
-        self.player.x++;  
+        player.x++;  
       } else if (oneBlockEmpty) {
-        self.player.x++;
-        self.player.y--;
+        player.x++;
+        player.y--;
       }
     },
     moveLeft: function() {
-      var oneBlockEmpty = worldArray.getBlock(self.player.x - 1, self.player.y) == null;
+      var oneBlockEmpty = worldArray.getBlock(player.x - 1, player.y) == null;
       var twoBlocksEmpty = oneBlockEmpty && 
-        (worldArray.getBlock(self.player.x - 1, self.player.y + 1) == null);
+        (worldArray.getBlock(player.x - 1, player.y + 1) == null);
       if (twoBlocksEmpty) {
-        self.player.x--;  
+        player.x--;
       } else if (oneBlockEmpty) {
-        self.player.x--;
-        self.player.y--;
+        player.x--;
+        player.y--;
       }
+    },
+    digRight: function() {
+      worldArray.deleteBlock(player.x + 1, player.y + 1);
+      worldArray.deleteBlock(player.x + 1, player.y);
+      worldArray.refreshScreen = true;
+    },
+    digLeft : function() {
+      worldArray.deleteBlock(player.x - 1, player.y + 1);
+      worldArray.deleteBlock(player.x - 1, player.y);
+      worldArray.refreshScreen = true;
     }
   };
   

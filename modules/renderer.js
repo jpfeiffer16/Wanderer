@@ -22,32 +22,29 @@ module.exports = function(genTerrain) {
       self.playerControls.moveLeft();
     }
   });
-  
+  program.key('e', function() {
+    if (self.playerControls != undefined) {
+      self.playerControls.digRight();
+    }
+  });
+   program.key('q', function() {
+    if (self.playerControls != undefined) {
+      self.playerControls.digLeft();
+    }
+  });
   self.render = function() {
+    if (worldArray.refreshScreen) {
+      program.clear();
+    }
     for (var i = 0; i < worldArray.length; i++) {
       var item = worldArray[i];
-      if (item.changed || item.changed == undefined) {
-        //Render it here 
-        
-        if (item._x != undefined && item._y != undefined) {
-          program.move(item._x, item._y);
-          program.write(' ');
-        }
-        if (item.type == 1) { 
-          program.move(item.x, item.y);
-          program.write('█');
-          item.changed = false;
-        }
-        if (item.type == 0) {
-          program.move(item.x, item.y);
-          program.write('x');
-          program.move(item.x, item.y + 1);
-          program.write('"');
-        }
+      if (item.changed || item.changed == undefined || worldArray.refreshScreen) {
+        renderBlock(item);    
       }
       item._x = item.x;
       item._y = item.y;
     }
+    worldArray.refreshScreen = false;
   }
 
   self.worldArray = worldArray;
@@ -55,5 +52,22 @@ module.exports = function(genTerrain) {
   self.autoRender = function () {
     setInterval(self.render, 50);
   }
-
+  function renderBlock(block) {
+    //Render it here 
+    if (block._x != undefined && block._y != undefined) {
+      program.move(block._x, block._y);
+      program.write(' ');
+    }
+    if (block.type == 1) { 
+      program.move(block.x, block.y);
+      program.write('█');
+      block.changed = false;
+    }
+    if (block.type == 0) {
+      program.move(block.x, block.y);
+      program.write('x');
+      program.move(block.x, block.y + 1);
+      program.write('"');
+    }
+  }
 };
