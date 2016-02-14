@@ -11,13 +11,14 @@ module.exports = function(genTerrain) {
 
   program.clear();
   program.alternateBuffer();
-
+  screen.key(['escape', 'q', 'C-c'], function(ch, key) {
+      return process.exit(0);
+  });
   screen.key('d', function() {
     if (self.playerControls != undefined) {
       self.playerControls.moveRight();
     }
   });
-  
   screen.key('a', function() {
     if (self.playerControls != undefined) {
       self.playerControls.moveLeft();
