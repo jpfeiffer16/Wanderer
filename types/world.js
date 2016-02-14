@@ -50,7 +50,8 @@ module.exports = (function() {
         self.splice(index, 1);
       }
     },
-    refreshScreen: false
+    refreshScreen: false,
+    blocksToDelete: []
   }
   return (World);
 }).call({});

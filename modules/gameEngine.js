@@ -1,6 +1,4 @@
 module.exports = function(worldArray) {
-//  console.log(worldArray.toString());
-//  if (worldArray.toString() != '[object Array]') throw 'Error: no worldArray passed to gameEngine';
   if (worldArray.getPlayer() == null)
     throw 'Error: No player found in specified world';
   var self = this;
@@ -43,12 +41,26 @@ module.exports = function(worldArray) {
     digRight: function() {
       worldArray.deleteBlock(player.x + 1, player.y + 1);
       worldArray.deleteBlock(player.x + 1, player.y);
-      worldArray.refreshScreen = true;
+      worldArray.blocksToDelete.push({
+        x: player.x + 1, 
+        y: player.y + 1
+      });
+      worldArray.blocksToDelete.push({
+        x: player.x + 1, 
+        y: player.y
+      });
     },
     digLeft : function() {
       worldArray.deleteBlock(player.x - 1, player.y + 1);
       worldArray.deleteBlock(player.x - 1, player.y);
-      worldArray.refreshScreen = true;
+      worldArray.blocksToDelete.push({
+        x: player.x - 1, 
+        y: player.y + 1
+      });
+      worldArray.blocksToDelete.push({
+        x: player.x - 1, 
+        y: player.y
+      });
     }
   };
   

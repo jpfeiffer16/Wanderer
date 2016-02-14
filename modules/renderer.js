@@ -7,27 +7,28 @@ module.exports = function(genTerrain) {
     throw 'Error: no terrain generator passed to renderer';
   var worldArray = genTerrain(program.rows, program.columns);
   var self = this;
+  var screen = blessed.screen();
 
   program.clear();
   program.alternateBuffer();
 
-  program.key('d', function() {
+  screen.key('d', function() {
     if (self.playerControls != undefined) {
       self.playerControls.moveRight();
     }
   });
   
-  program.key('a', function() {
+  screen.key('a', function() {
     if (self.playerControls != undefined) {
       self.playerControls.moveLeft();
     }
   });
-  program.key('e', function() {
+  screen.key('e', function() {
     if (self.playerControls != undefined) {
       self.playerControls.digRight();
     }
   });
-   program.key('q', function() {
+  screen.key('q', function() {
     if (self.playerControls != undefined) {
       self.playerControls.digLeft();
     }
@@ -43,6 +44,14 @@ module.exports = function(genTerrain) {
       }
       item._x = item.x;
       item._y = item.y;
+    }
+    if (worldArray.blocksToDelete.length > 0) {
+      for (var i = 0; i < worldArray.blocksToDelete.length; i++) {
+        block = worldArray.blocksToDelete[i];
+        program.move(block.x, block.y);
+        program.write(' ');
+      }
+      worldArray.blocksToDelete = [];
     }
     worldArray.refreshScreen = false;
   }
@@ -67,7 +76,7 @@ module.exports = function(genTerrain) {
       program.move(block.x, block.y);
       program.write('x');
       program.move(block.x, block.y + 1);
-      program.write('"');
+      program.write('|');
     }
   }
 };
