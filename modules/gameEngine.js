@@ -38,29 +38,43 @@ module.exports = function(worldArray) {
         player.y--;
       }
     },
-    digRight: function() {
-      worldArray.deleteBlock(player.x + 1, player.y + 1);
-      worldArray.deleteBlock(player.x + 1, player.y);
-      worldArray.blocksToDelete.push({
-        x: player.x + 1, 
-        y: player.y + 1
-      });
-      worldArray.blocksToDelete.push({
-        x: player.x + 1, 
-        y: player.y
-      });
+    digRight: function(topBlock, bottomBlock) {
+      if (bottomBlock) {
+        worldArray.deleteBlock(player.x + 1, player.y + 1);
+        worldArray.blocksToDelete.push({
+          x: player.x + 1, 
+          y: player.y + 1
+        });
+      }
+      if (topBlock) {
+        worldArray.deleteBlock(player.x + 1, player.y);
+        worldArray.blocksToDelete.push({
+          x: player.x + 1, 
+          y: player.y
+        });
+      }
     },
-    digLeft : function() {
-      worldArray.deleteBlock(player.x - 1, player.y + 1);
-      worldArray.deleteBlock(player.x - 1, player.y);
-      worldArray.blocksToDelete.push({
-        x: player.x - 1, 
-        y: player.y + 1
-      });
-      worldArray.blocksToDelete.push({
-        x: player.x - 1, 
-        y: player.y
-      });
+    digLeft: function(topBlock, bottomBlock) {
+      if (bottomBlock) {
+        worldArray.deleteBlock(player.x - 1, player.y + 1);
+        worldArray.blocksToDelete.push({
+          x: player.x - 1, 
+          y: player.y + 1
+        });
+      }
+      if (topBlock) {
+        worldArray.deleteBlock(player.x - 1, player.y);
+        worldArray.blocksToDelete.push({
+          x: player.x - 1, 
+          y: player.y
+        });
+      }
+    },
+    jump: function() {
+      player.y--;
+    },
+    reRender: function() {
+      worldArray.refreshScreen = true;
     }
   };
   

@@ -11,8 +11,28 @@ module.exports = function(genTerrain) {
 
   program.clear();
   program.alternateBuffer();
-  screen.key(['escape', 'q', 'C-c'], function(ch, key) {
+  screen.key(['escape', 'C-c'], function(ch, key) {
       return process.exit(0);
+  });
+  screen.key('y', function() {
+    if (self.playerControls != undefined) {
+      self.playerControls.reRender();
+    }
+  });
+  screen.key('w', function() {
+    if (self.playerControls != undefined) {
+      self.playerControls.jump();
+    }
+  });
+  screen.key('z', function() {
+    if (self.playerControls != undefined) {
+      self.playerControls.digLeft(false, true);
+    }
+  });
+  screen.key('x', function() {
+    if (self.playerControls != undefined) {
+      self.playerControls.digRight(false, true);
+    }
   });
   screen.key('d', function() {
     if (self.playerControls != undefined) {
@@ -26,12 +46,12 @@ module.exports = function(genTerrain) {
   });
   screen.key('e', function() {
     if (self.playerControls != undefined) {
-      self.playerControls.digRight();
+      self.playerControls.digRight(true, false);
     }
   });
   screen.key('q', function() {
     if (self.playerControls != undefined) {
-      self.playerControls.digLeft();
+      self.playerControls.digLeft(true, false);
     }
   });
   self.render = function() {
@@ -65,8 +85,12 @@ module.exports = function(genTerrain) {
   function renderBlock(block) {
     //Render it here 
     if (block._x != undefined && block._y != undefined) {
-      program.move(block._x, block._y);
-      program.write(' ');
+      for (var i = 0; i < block.width; i++) {
+        for (var j = 0; j < block.height; j++) {
+          program.move(block._x + i, block._y + j);
+          program.write(' ');
+        }
+      } 
     }
     if (block.type == 1) { 
       program.move(block.x, block.y);

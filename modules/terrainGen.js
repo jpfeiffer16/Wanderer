@@ -19,15 +19,17 @@ module.exports = function() {
       }
     }
 
-    for (var i = 2; i < 30; i = i + 2) {
-      worldArray.push({
-        type: 1,
-        x: i,
-        y: 20,
-        height: 1,
-        width: 1,
-        gravity: true
-      });
+    for (var i = 2; i < 30; i = i + 1) {
+      for (var j = 2; j < 30; j = j + 1) {
+        worldArray.push({
+          type: 1,
+          x: j,
+          y: i,
+          height: 1,
+          width: 1,
+          gravity: true
+        });
+      }
     }
 
     worldArray.push({
