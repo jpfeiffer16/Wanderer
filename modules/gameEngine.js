@@ -104,6 +104,13 @@ module.exports = function(worldArray) {
     },
     reRender: function() {
       worldArray.refreshScreen = true;
+    },
+    saveJson: function() {
+      return JSON.stringify(worldArray);
+    },
+    restoreFromJson: (json) {
+      worldArray.length = 0;
+      worldArray = JSON.parse(json);
     }
   };
   
