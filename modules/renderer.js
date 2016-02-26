@@ -69,6 +69,11 @@ module.exports = function(genTerrain) {
       self.playerControls.saveJson();
     }
   });
+  screen.key('n', function() {
+    if (self.playerControls != undefined) {
+      self.playerControls.restoreFromJson();
+    }
+  });
   self.render = function() {
     if (worldArray.refreshScreen) {
       program.clear();

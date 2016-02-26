@@ -1,9 +1,22 @@
+var Loader = require('./loader');
 module.exports = function(worldArray) {
   if (worldArray.getPlayer() == null)
     throw 'Error: No player found in specified world';
   var self = this;
   var player = worldArray.getPlayer();
   self.loop = function() {
+    //Check the forcast for huge-ass drops of rain.
+    var chanceRain = Math.random() < .1;
+    if (chanceRain) {
+      worldArray.push({
+        type: 1,
+        x: Math.round(Math.random() * 80, 0),
+        y: 3,
+        height: 1,
+        width: 1,
+        gravity: true
+      });
+    }
     for (var i = 0; i < worldArray.length; i ++) {
       var item = worldArray[i];
       //Gravity
@@ -106,11 +119,22 @@ module.exports = function(worldArray) {
       worldArray.refreshScreen = true;
     },
     saveJson: function() {
-      return JSON.stringify(worldArray);
+      Loader.saveFile('./world.json', JSON.stringify(worldArray), function() {
+        console.log('Done saving');
+      });
+      // return JSON.stringify(worldArray);
     },
-    restoreFromJson: (json) {
-      worldArray.length = 0;
-      worldArray = JSON.parse(json);
+    restoreFromJson: function (json) {
+      Loader.loadFile('./world.json', function(data) {
+        worldArray.length = 0;
+        var blocks = JSON.parse(data);
+        for (var i = 0; i < blocks.length; i++) {
+          worldArray.push(blocks[i]);
+        }
+        worldArray.refreshScreen = true;
+        //Re-add our reference to the player since we've lost it when we reloaded
+        player = worldArray.getPlayer();
+      });
     }
   };
   

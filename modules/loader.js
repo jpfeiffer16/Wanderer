@@ -6,8 +6,8 @@ var Loader = function() {
       callback(data);
     }); 
   };
-  this.saveFile = function(path, callback) {
-    fs.writeFile(path, 'utf8', function(err, data) {
+  this.saveFile = function(path, data, callback) {
+    fs.writeFile(path, data, 'utf8', function(err, data) {
        if (err) throw err;
        callback(data);
     });
