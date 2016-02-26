@@ -54,6 +54,16 @@ module.exports = function(genTerrain) {
       self.playerControls.digLeft(true, false);
     }
   });
+  screen.key('v', function() {
+    if (self.playerControls != undefined) {
+      self.playerControls.digDown();
+    }
+  });
+  screen.key('g', function() {
+    if (self.playerControls != undefined) {
+      self.playerControls.placeDown();
+    }
+  });
   self.render = function() {
     if (worldArray.refreshScreen) {
       program.clear();

@@ -18,22 +18,26 @@ module.exports = function(worldArray) {
   self.playerControls = {
     moveRight: function() {
       var oneBlockEmpty = worldArray.getBlock(player.x + 1, player.y) == null;
+      var stepEmpty = oneBlockEmpty && 
+        (worldArray.getBlock(player.x + 1, player.y - 1) == null);
       var twoBlocksEmpty = oneBlockEmpty && 
         (worldArray.getBlock(player.x + 1, player.y + 1) == null);
       if (twoBlocksEmpty) {
         player.x++;  
-      } else if (oneBlockEmpty) {
+      } else if (stepEmpty) {
         player.x++;
         player.y--;
       }
     },
     moveLeft: function() {
       var oneBlockEmpty = worldArray.getBlock(player.x - 1, player.y) == null;
+      var stepEmpty = oneBlockEmpty &&
+        (worldArray.getBlock(player.x - 1, player.y - 1) == null);
       var twoBlocksEmpty = oneBlockEmpty && 
         (worldArray.getBlock(player.x - 1, player.y + 1) == null);
       if (twoBlocksEmpty) {
         player.x--;
-      } else if (oneBlockEmpty) {
+      } else if (stepEmpty) {
         player.x--;
         player.y--;
       }
@@ -70,8 +74,33 @@ module.exports = function(worldArray) {
         });
       }
     },
+    digDown: function() {
+      worldArray.deleteBlock(player.x, player.y + player.height);
+      worldArray.blocksToDelete.push({
+        x: player.x, 
+        y: player.y + player.height 
+      });
+    },
+    placeDown: function() {
+      var topBlockEmpty = worldArray.getBlock(player.x, player.y - 1) == null;
+      if (topBlockEmpty) {
+        player.y--;
+        //TODO: Should probably create a method for doing this
+        worldArray.push({
+          type: 1,
+          height: 1,
+          width: 1,
+          changed: true,
+          x: player.x,
+          y: player.y + player.height
+        });
+      }
+    },
     jump: function() {
-      player.y--;
+      var topBlockEmpty = worldArray.getBlock(player.x, player.y - 1) == null;
+      if (topBlockEmpty) { 
+        player.y--;
+      }
     },
     reRender: function() {
       worldArray.refreshScreen = true;
