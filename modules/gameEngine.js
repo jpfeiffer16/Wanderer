@@ -6,17 +6,17 @@ module.exports = function(worldArray) {
   var player = worldArray.getPlayer();
   self.loop = function() {
     //Check the forcast for huge-ass drops of rain.
-    var chanceRain = Math.random() < .1;
-    if (chanceRain) {
-      worldArray.push({
-        type: 1,
-        x: Math.round(Math.random() * 80, 0),
-        y: 3,
-        height: 1,
-        width: 1,
-        gravity: true
-      });
-    }
+    //var chanceRain = Math.random() < .1;
+    //if (chanceRain) {
+    //  worldArray.push({
+    //    type: 1,
+    //    x: Math.round(Math.random() * 80, 0),
+    //    y: 3,
+    //    height: 1,
+    //    width: 1,
+    //    gravity: true
+    //  });
+    //}
     for (var i = 0; i < worldArray.length; i ++) {
       var item = worldArray[i];
       //Gravity

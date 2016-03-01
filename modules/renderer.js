@@ -5,10 +5,11 @@ module.exports = function(genTerrain) {
   //Do some sanity checks:
   if (typeof(genTerrain) != 'function') 
     throw 'Error: no terrain generator passed to renderer';
-  var worldArray = genTerrain(program.rows, program.columns);
   var self = this;
   var screen = blessed.screen();
-
+  var worldArray = genTerrain(screen.height, screen.width);
+  var screenOffsetX = 0;
+  var screenOffsetY = 0;
   program.clear();
   program.alternateBuffer();
   screen.key(['escape', 'C-c'], function(ch, key) {
@@ -85,8 +86,11 @@ module.exports = function(genTerrain) {
     }
     for (var i = 0; i < worldArray.length; i++) {
       var item = worldArray[i];
-      if (item.changed || item.changed == undefined || worldArray.refreshScreen) {
-        renderBlock(item);    
+      if (item.x > screenOffsetX && item.x < screenOffsetX + screen.width &&
+          item.y > screenOffsetY && item.y < screenOffsetY + screen.height) {
+        if (item.changed || item.changed == undefined || worldArray.refreshScreen) {
+          renderBlock(item);    
+        }
       }
       item._x = item.x;
       item._y = item.y;
@@ -112,18 +116,17 @@ module.exports = function(genTerrain) {
     if (block._x != undefined && block._y != undefined) {
       for (var i = 0; i < block.width; i++) {
         for (var j = 0; j < block.height; j++) {
-          program.move(block._x + i, block._y + j);
+          program.move(block._x + i + screenOffsetX, block._y + j + screenOffsetY);
           program.write(' ');
         }
       } 
     }
+    program.move(block.x + screenOffsetX, block.y + screenOffsetY);
     if (block.type == 1) { 
-      program.move(block.x, block.y);
       program.write('█');
       block.changed = false;
     }
     if (block.type == 0) {
-      program.move(block.x, block.y);
       program.write('x');
       program.move(block.x, block.y + 1);
       program.write('|');

@@ -4,9 +4,10 @@ module.exports = function() {
   
   var genTerrain = function(rows, columns) {
     var worldArray = new World();
-    for (var i = 0; i < columns; i++) {
+    //for (var i = 0; i < columns; i++) {
+    for (var i = 0; i < 3000; i++) {
       var ranNum = Math.round(((Math.random() * 100) / 10), 0);
-      for (var j = 0; j < ranNum; j++) {
+      for (var j = 0; j < rannum; j++) {
         var item = {
           // gravity: true,
           type: 1,
