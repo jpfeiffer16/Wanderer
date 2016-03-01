@@ -109,6 +109,20 @@ module.exports = function(worldArray) {
         });
       }
     },
+    placeUp: function() {
+      var topBlockEmpty = worldArray.getBlock(player.x, player.y - 1) == null;
+      if (topBlockEmpty) {
+        //TODO: Should probably create a method for doing this
+        worldArray.push({
+          type: 1,
+          height: 1,
+          width: 1,
+          changed: true,
+          x: player.x,
+          y: player.y - 1
+        });
+      }
+    },
     jump: function() {
       var topBlockEmpty = worldArray.getBlock(player.x, player.y - 1) == null;
       if (topBlockEmpty) { 

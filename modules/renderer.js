@@ -64,6 +64,11 @@ module.exports = function(genTerrain) {
       self.playerControls.placeDown();
     }
   });
+  screen.key('r', function() {
+    if (self.playerControls != undefined) {
+      self.playerControls.placeUp();
+    }
+  });
   screen.key('m', function() {
     if (self.playerControls != undefined) {
       self.playerControls.saveJson();
