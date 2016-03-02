@@ -8,6 +8,7 @@ module.exports = function(genTerrain) {
   var self = this;
   var screen = blessed.screen();
   var worldArray = genTerrain(screen.height, screen.width);
+  var player = worldArray.getPlayer();
   var screenOffsetX = 0;
   var screenOffsetY = 0;
   program.clear();
@@ -81,6 +82,18 @@ module.exports = function(genTerrain) {
     }
   });
   self.render = function() {
+    if (player.x > screenOffsetX + screen.width - 30) {
+      screenOffsetX += (screen.width / 2);
+      if (self.playerControls != undefined) {
+        self.playerControls.reRender();
+      }
+    }
+    if (player.x < screenOffsetX + 30) {
+      screenOffsetX -= (screen.width / 2);
+      if (self.playerControls != undefined) {
+        self.playerControls.reRender();
+      }
+    }
     if (worldArray.refreshScreen) {
       program.clear();
     }
@@ -98,7 +111,7 @@ module.exports = function(genTerrain) {
     if (worldArray.blocksToDelete.length > 0) {
       for (var i = 0; i < worldArray.blocksToDelete.length; i++) {
         block = worldArray.blocksToDelete[i];
-        program.move(block.x, block.y);
+        program.move(block.x - screenOffsetX, block.y - screenOffsetY);
         program.write(' ');
       }
       worldArray.blocksToDelete = [];
@@ -116,19 +129,19 @@ module.exports = function(genTerrain) {
     if (block._x != undefined && block._y != undefined) {
       for (var i = 0; i < block.width; i++) {
         for (var j = 0; j < block.height; j++) {
-          program.move(block._x + i + screenOffsetX, block._y + j + screenOffsetY);
+          program.move(block._x + i - screenOffsetX, block._y + j - screenOffsetY);
           program.write(' ');
         }
       } 
     }
-    program.move(block.x + screenOffsetX, block.y + screenOffsetY);
+    program.move(block.x - screenOffsetX, block.y - screenOffsetY);
     if (block.type == 1) { 
       program.write('█');
       block.changed = false;
     }
     if (block.type == 0) {
       program.write('x');
-      program.move(block.x, block.y + 1);
+      program.move(block.x - screenOffsetX, block.y + 1 - screenOffsetY);
       program.write('|');
     }
   }
