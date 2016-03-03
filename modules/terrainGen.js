@@ -7,12 +7,19 @@ module.exports = function() {
     //for (var i = 0; i < columns; i++) {
     for (var i = 0; i < 3000; i++) {
       var ranNum = Math.round(((Math.random() * 100) / 10), 0);
-      for (var j = 0; j < ranNum; j++) {
+      //worldArray.push({
+      //  type: 1,
+      //  x: i,
+      //  y: 5,
+      //  height: 1,
+      //  width: 1
+      //});
+      for (var j = 0; j < 100; j++) {
         var item = {
           // gravity: true,
           type: 1,
           x: i,
-          y: (rows - j) - 1,
+          y: j + 40,
           height: 1,
           width: 1
         };
@@ -36,7 +43,7 @@ module.exports = function() {
     worldArray.push({
       type: 0,
       x: 33,
-      y: 3,
+      y: 10,
       height: 2,
       width: 1,
       gravity: true
