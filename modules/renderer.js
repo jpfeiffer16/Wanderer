@@ -95,7 +95,8 @@ module.exports = function(genTerrain) {
       }
     }
     if (player.y > screenOffsetY + screen.height - 5) {
-      screenOffsetY += (screen.height / 2);
+      screenOffsetY += 10;
+      //screenOffsetY += (screen.height / 2);
       if (self.playerControls != undefined) {
         self.playerControls.reRender();
       }

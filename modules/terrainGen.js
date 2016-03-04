@@ -5,7 +5,7 @@ module.exports = function() {
   var genTerrain = function(rows, columns) {
     var worldArray = new World();
     //for (var i = 0; i < columns; i++) {
-    for (var i = 0; i < 3000; i++) {
+    for (var i = 0; i < 300; i++) {
       var ranNum = Math.round(((Math.random() * 100) / 10), 0);
       //worldArray.push({
       //  type: 1,
