@@ -101,6 +101,13 @@ module.exports = function(genTerrain) {
         self.playerControls.reRender();
       }
     }
+    if (player.y < screenOffsetY) {
+      screenOffsetY -= 10;
+      //screenOffsetY += (screen.height / 2);
+      if (self.playerControls != undefined) {
+        self.playerControls.reRender();
+      }
+    }
     if (worldArray.refreshScreen) {
       program.clear();
     }
