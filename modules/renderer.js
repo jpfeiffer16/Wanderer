@@ -1,5 +1,7 @@
 var blessed = require('blessed'),
-    program = blessed.program();
+    program = blessed.program(),
+    Blocks = require('../types/blocks'),
+    blockTypes = Blocks.blockTypes;
 
 module.exports = function(genTerrain) {
   //Do some sanity checks:
@@ -124,7 +126,7 @@ module.exports = function(genTerrain) {
     }
     if (worldArray.blocksToDelete.length > 0) {
       for (var i = 0; i < worldArray.blocksToDelete.length; i++) {
-        block = worldArray.blocksToDelete[i];
+        var block = worldArray.blocksToDelete[i];
         program.move(block.x - screenOffsetX, block.y - screenOffsetY);
         program.write(' ');
       }
@@ -148,15 +150,24 @@ module.exports = function(genTerrain) {
         }
       } 
     }
-    program.move(block.x - screenOffsetX, block.y - screenOffsetY);
-    if (block.type == 1) { 
-      program.write('█');
-      block.changed = false;
+    //program.move(block.x - screenOffsetX, block.y - screenOffsetY);
+    // if (block.type == 1) { 
+    //   program.write('█');
+    //   block.changed = false;
+    // }
+    // if (block.type == 0) {
+    //   program.write('x');
+    //   program.move(block.x - screenOffsetX, block.y + 1 - screenOffsetY);
+    //   program.write('|');
+    // }
+    var rep = Blocks.getBlock(block.type).rep;
+    // console.log(rep);
+    for (var i = 0; i < rep.length; i++) {
+      program.move(block.x - screenOffsetX, block.y + i - screenOffsetY);
+      program.write(rep[i]);
     }
-    if (block.type == 0) {
-      program.write('x');
-      program.move(block.x - screenOffsetX, block.y + 1 - screenOffsetY);
-      program.write('|');
+    if (block.type != blockTypes.PLAYER) {
+      block.changed = false;
     }
   }
 };

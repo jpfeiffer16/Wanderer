@@ -2,8 +2,8 @@
 var blocks = {
   0: {
      rep: [
-       ['x'],
-       ['|']
+       'x',
+       '|'
      ],
      properties: {
        height: 2,
@@ -12,7 +12,7 @@ var blocks = {
      }
   },
   1: {
-    rep: [['█']],
+    rep: ['█'],
     properties: {
       //Might not need this as we already know what it is and can insert it later.
       //type: 1,
@@ -23,7 +23,7 @@ var blocks = {
   }
 };
 
-module.exports = (function() {
+var BlockLoader = function() {
   var self = this;
   self.blockTypes = {
     PLAYER: 0,
@@ -31,6 +31,10 @@ module.exports = (function() {
   };
   self.getBlock = function(blockId) {
     //TODO: Do some type checking here
-    return blocks[blockId];
+    var block = blocks[blockId];
+    block.properties.type = blockId;
+    return block;
   }
-})();
+}
+
+module.exports = new BlockLoader();

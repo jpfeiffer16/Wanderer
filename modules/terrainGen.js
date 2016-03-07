@@ -1,4 +1,6 @@
-var World = require('../types/world');
+var World = require('../types/world'),
+    Blocks = require('../types/blocks'),
+    blockTypes = Blocks.blockTypes;
 module.exports = function() {
   var self = this;
   
@@ -15,14 +17,17 @@ module.exports = function() {
       //  width: 1
       //});
       for (var j = 0; j < 100; j++) {
-        var item = {
-          // gravity: true,
-          type: 1,
-          x: i,
-          y: j + 40,
-          height: 1,
-          width: 1
-        };
+        // var item = {
+        //   // gravity: true,
+        //   type: 1,
+        //   x: i,
+        //   y: j + 40,
+        //   height: 1,
+        //   width: 1
+        // };
+        var item = Blocks.getBlock(blockTypes.DIRT).properties;
+        item.x = i;
+        item.y = j + 40;
         worldArray.push(item);
       }
     }
@@ -40,14 +45,20 @@ module.exports = function() {
     //  }
     //}
 
-    worldArray.push({
-      type: 0,
-      x: 33,
-      y: 10,
-      height: 2,
-      width: 1,
-      gravity: true
-    });
+    // worldArray.push({
+    //   type: 0,
+    //   x: 33,
+    //   y: 10,
+    //   height: 2,
+    //   width: 1,
+    //   gravity: true
+    // });
+    var player = Blocks.getBlock(blockTypes.PLAYER).properties;
+    player.x = 33;
+    player.y = 10;
+    
+    
+    worldArray.push(player);
 
     return worldArray;
   }
