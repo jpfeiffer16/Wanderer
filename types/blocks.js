@@ -33,7 +33,8 @@ var BlockLoader = function() {
     //TODO: Do some type checking here
     var block = blocks[blockId];
     block.properties.type = blockId;
-    return block;
+    //Clone the properties
+    return JSON.parse(JSON.stringify(block));
   }
 }
 

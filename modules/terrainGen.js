@@ -17,19 +17,20 @@ module.exports = function() {
       //  width: 1
       //});
       for (var j = 0; j < 100; j++) {
-        // var item = {
-        //   // gravity: true,
-        //   type: 1,
-        //   x: i,
-        //   y: j + 40,
-        //   height: 1,
-        //   width: 1
-        // };
+        //var item = {
+        //  // gravity: true,
+        //  type: 1,
+        //  x: i,
+        //  y: j + 40,
+        //  height: 1,
+        //  width: 1
+        //};
         var item = Blocks.getBlock(blockTypes.DIRT).properties;
         item.x = i;
         item.y = j + 40;
         worldArray.push(item);
       }
+      //console.log(worldArray);
     }
 
     //for (var i = 2; i < 30; i = i + 1) {
