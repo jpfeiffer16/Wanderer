@@ -1,3 +1,6 @@
+var Blocks = require('./blocks'),
+    blockTypes = Blocks.blockTypes,
+    uuid = require('node-uuid');
 module.exports = (function() {
   function World() {
     var world = Object.create(Array.prototype);
@@ -35,6 +38,14 @@ module.exports = (function() {
         }
       }
       return null;
+    },
+    createBlock: function(type, x, y) {
+      var block = Blocks.getBlock(type).properties;
+      block.x = x;
+      block.y = y;
+      block.id = uuid.v4();
+      self.push(block);
+      return block;
     },
     deleteBlock: function(x, y) {
       var self = this;

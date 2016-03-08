@@ -4,7 +4,7 @@ var World = require('../types/world'),
 module.exports = function() {
   var self = this;
   
-  var genTerrain = function(rows, columns) {
+  var genTerrain = function() {
     var worldArray = new World();
     //for (var i = 0; i < columns; i++) {
     for (var i = 0; i < 300; i++) {
@@ -25,10 +25,11 @@ module.exports = function() {
         //  height: 1,
         //  width: 1
         //};
-        var item = Blocks.getBlock(blockTypes.DIRT).properties;
-        item.x = i;
-        item.y = j + 40;
-        worldArray.push(item);
+        // var item = Blocks.getBlock(blockTypes.DIRT).properties;
+        // item.x = i;
+        // item.y = j + 40;
+        // worldArray.push(item);
+        worldArray.createBlock(blockTypes.DIRT, i, j + 40);
       }
       //console.log(worldArray);
     }

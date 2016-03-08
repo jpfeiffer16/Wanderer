@@ -14,8 +14,6 @@ var blocks = {
   1: {
     rep: ['█'],
     properties: {
-      //Might not need this as we already know what it is and can insert it later.
-      //type: 1,
       height: 1,
       width: 1,
       gravity: false
@@ -31,10 +29,12 @@ var BlockLoader = function() {
   };
   self.getBlock = function(blockId) {
     //TODO: Do some type checking here
-    var block = blocks[blockId];
-    block.properties.type = blockId;
-    //Clone the properties
-    return JSON.parse(JSON.stringify(block));
+    if (typeof(blockId) == 'number') {
+      var block = blocks[blockId];
+      block.properties.type = blockId;
+      //Clone the block
+      return JSON.parse(JSON.stringify(block));
+    }
   }
 }
 

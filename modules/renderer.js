@@ -3,13 +3,13 @@ var blessed = require('blessed'),
     Blocks = require('../types/blocks'),
     blockTypes = Blocks.blockTypes;
 
-module.exports = function(genTerrain) {
+module.exports = function(terrain) {
   //Do some sanity checks:
-  if (typeof(genTerrain) != 'function') 
-    throw 'Error: no terrain generator passed to renderer';
+  // if (typeof(terrain) != 'World') 
+  //   throw 'Error: no world passed to renderer';
   var self = this;
   var screen = blessed.screen();
-  var worldArray = genTerrain(screen.height, screen.width);
+  var worldArray = terrain
   var player = worldArray.getPlayer();
   var screenOffsetX = 0;
   var screenOffsetY = 0;

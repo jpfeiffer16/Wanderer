@@ -9,6 +9,8 @@
   "author": "Joe Pfeiffer",
   "license": "ISC",
   "dependencies": {
-    "blessed": "^0.1.81"
+    "blessed": "^0.1.81",
+    "node-uuid": "^1.4.7",
+    "socket.io": "^1.4.5"
   }
 }

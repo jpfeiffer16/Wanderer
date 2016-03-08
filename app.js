@@ -1,30 +1,17 @@
-var terrainGen = require('./modules/terrainGen')(),
+var TerrainGen = require('./modules/terrainGen')(),
     Renderer = require('./modules/renderer'),
     GameEngine = require('./modules/gameEngine'),
     Loader = require('./modules/loader.js');
 var terrain; 
-// if (process.argv[2] != undefined) {
-//   Loader.loadFile(process.argv[2], function(terrain) {
-//     var renderer = new Renderer(terrainGen.genTerrain);
-//     var gameEngine = new GameEngine(renderer.worldArray);
-// 
-//     gameEngine.start();
-//     renderer.autoRender();
-//     renderer.playerControls = gameEngine.playerControls;
-//   });
-// } else {
-//   //terrain = terrainGen.genTerrain;
-//   var renderer = new Renderer(terrainGen.genTerrain);
-//   var gameEngine = new GameEngine(renderer.worldArray);
-// 
-//   gameEngine.start();
-//   renderer.autoRender();
-//   renderer.playerControls = gameEngine.playerControls;
-// }
-var renderer = new Renderer(terrainGen.genTerrain);
-//console.dir(renderer.worldArray);
-var gameEngine = new GameEngine(renderer.worldArray);
-
-gameEngine.start();
-renderer.autoRender();
-renderer.playerControls = gameEngine.playerControls;
+if (process.argv[2] == 'server') {
+  console.log('server');
+} else if (process.argv[2] == 'multiplayer') {
+  console.log('client');
+} else {
+  var world = TerrainGen.genTerrain();
+  var renderer = new Renderer(world);
+  var gameEngine = new GameEngine(world);
+  gameEngine.start();
+  renderer.autoRender();
+  renderer.playerControls = gameEngine.playerControls;
+}
