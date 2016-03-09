@@ -1,9 +1,17 @@
 var Loader = require('./loader'),
     blockTypes = require('../types/blocks').blockTypes;
-module.exports = function(worldArray) {
+module.exports = function(worldArray, multiplayer) {
   if (worldArray.getPlayer() == null)
     throw 'Error: No player found in specified world';
   var self = this;
+  self.isMultiplayer = multiplayer;
+  if (self.isMultiplayer) {
+    var io = require('socket.io-client');
+    var socket = io('localhost:3030');
+    socket.on('connection', function() {
+      console.log('Connected');
+    });
+  }
   var player = worldArray.getPlayer();
   self.loop = function() {
     //Check the forcast for huge-ass drops of rain.
@@ -21,16 +29,16 @@ module.exports = function(worldArray) {
     for (var i = 0; i < worldArray.length; i ++) {
       var item = worldArray[i];
       if (!self.isMultiplayer) {
-	//Gravity
-	if (item.gravity) {
-	  if (worldArray.getBlock(item.x, item.y + item.height) == null) {
-	    item.changed = true;
-	    item.y++;
-	  }
-	}
+        //Gravity
+        if (item.gravity) {
+          if (worldArray.getBlock(item.x, item.y + item.height) == null) {
+            item.changed = true;
+            item.y++;
+          }
+        }
       }
       if (self.isMultiplayer) {
-	//Do websockets stuff here.
+        //Do websockets stuff here.
       }
     }
   };
@@ -113,7 +121,7 @@ module.exports = function(worldArray) {
         //  x: player.x,
         //  y: player.y + player.height
         //});
-	worldArray.createBlock(blockTypes.DIRT, player.x, player.y + player.height);
+        worldArray.createBlock(blockTypes.DIRT, player.x, player.y + player.height);
       }
     },
     placeUp: function() {
@@ -128,7 +136,7 @@ module.exports = function(worldArray) {
         //  x: player.x,
         //  y: player.y - 1
         //});
-	worldArray.createBlock(blockTypes.DIRT, player.x, player.y - 1);
+        worldArray.createBlock(blockTypes.DIRT, player.x, player.y - 1);
       }
     },
     jump: function() {
@@ -163,5 +171,4 @@ module.exports = function(worldArray) {
   self.start = function() {
     setInterval(self.loop, 200);
   };
-  self.isMultiplayer = false;
 };

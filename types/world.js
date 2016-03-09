@@ -21,10 +21,28 @@ module.exports = (function() {
   World.prototype = {
     getBlock:  function(x, y) {
       var self = this;
-      for (var i = 0; i < this.length; i++) {          
+      for (var i = 0; i < self.length; i++) {          
         var item = self[i];                            
         if (item.x == x && item.y == y) {              
           return item;
+        }
+      }
+      return null;
+    },
+    getBlockById: function(id) {
+      for (var i = 0; i < this.length; i++) {
+        var item = this[i];
+        if (item.id == id) {
+          return item;
+        }
+      }
+      return null;
+    },
+    updateBlockById: function(id, newBlock) {
+      for (var i = 0; i < this.length; i++) {
+        var item = this[i];
+        if (item.id == id) {
+          item == newBlock;
         }
       }
       return null;
