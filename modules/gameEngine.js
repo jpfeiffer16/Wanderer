@@ -1,4 +1,5 @@
-var Loader = require('./loader');
+var Loader = require('./loader'),
+    blockTypes = require('../types/blocks').blockTypes;
 module.exports = function(worldArray) {
   if (worldArray.getPlayer() == null)
     throw 'Error: No player found in specified world';
@@ -19,12 +20,17 @@ module.exports = function(worldArray) {
     //}
     for (var i = 0; i < worldArray.length; i ++) {
       var item = worldArray[i];
-      //Gravity
-      if (item.gravity) {
-        if (worldArray.getBlock(item.x, item.y + item.height) == null) {
-          item.changed = true;
-          item.y++;
-        }
+      if (!self.isMultiplayer) {
+	//Gravity
+	if (item.gravity) {
+	  if (worldArray.getBlock(item.x, item.y + item.height) == null) {
+	    item.changed = true;
+	    item.y++;
+	  }
+	}
+      }
+      if (self.isMultiplayer) {
+	//Do websockets stuff here.
       }
     }
   };
@@ -99,28 +105,30 @@ module.exports = function(worldArray) {
       if (topBlockEmpty) {
         player.y--;
         //TODO: Should probably create a method for doing this
-        worldArray.push({
-          type: 1,
-          height: 1,
-          width: 1,
-          changed: true,
-          x: player.x,
-          y: player.y + player.height
-        });
+        //worldArray.push({
+        //  type: 1,
+        //  height: 1,
+        //  width: 1,
+        //  changed: true,
+        //  x: player.x,
+        //  y: player.y + player.height
+        //});
+	worldArray.createBlock(blockTypes.DIRT, player.x, player.y + player.height);
       }
     },
     placeUp: function() {
       var topBlockEmpty = worldArray.getBlock(player.x, player.y - 1) == null;
       if (topBlockEmpty) {
         //TODO: Should probably create a method for doing this
-        worldArray.push({
-          type: 1,
-          height: 1,
-          width: 1,
-          changed: true,
-          x: player.x,
-          y: player.y - 1
-        });
+        //worldArray.push({
+        //  type: 1,
+        //  height: 1,
+        //  width: 1,
+        //  changed: true,
+        //  x: player.x,
+        //  y: player.y - 1
+        //});
+	worldArray.createBlock(blockTypes.DIRT, player.x, player.y - 1);
       }
     },
     jump: function() {
@@ -155,4 +163,5 @@ module.exports = function(worldArray) {
   self.start = function() {
     setInterval(self.loop, 200);
   };
+  self.isMultiplayer = false;
 };

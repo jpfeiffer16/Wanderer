@@ -44,7 +44,7 @@ module.exports = (function() {
       block.x = x;
       block.y = y;
       block.id = uuid.v4();
-      self.push(block);
+      this.push(block);
       return block;
     },
     deleteBlock: function(x, y) {
