@@ -42,7 +42,8 @@ module.exports = (function() {
       for (var i = 0; i < this.length; i++) {
         var item = this[i];
         if (item.id == id) {
-          item == newBlock;
+          item = newBlock;
+          newBlock.changed = true;
         }
       }
       return null;

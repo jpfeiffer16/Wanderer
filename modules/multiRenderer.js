@@ -18,13 +18,18 @@ module.exports = function(terrain) {
   
   
   self.render = function() {
+    var blocksToSend = [];
     for (var i = 0; i < worldArray.length; i++) {
       var item = worldArray[i];
       if (item.changed || item.changed == undefined || worldArray.refreshScreen) {
-        renderBlock(item);    
+        // renderBlock(item);
+        blocksToSend.push(item);
       }
       item._x = item.x;
       item._y = item.y;
+    }
+    if (blocksToSend.length > 0) {
+      io.sockets.emit('blocks changed', blocksToSend);
     }
     if (worldArray.blocksToDelete.length > 0) {
       for (var i = 0; i < worldArray.blocksToDelete.length; i++) {

@@ -9,13 +9,15 @@ module.exports = function() {
     //for (var i = 0; i < columns; i++) {
     for (var i = 0; i < 300; i++) {
       var ranNum = Math.round(((Math.random() * 100) / 10), 0);
-      //worldArray.push({
+      // worldArray.push({
       //  type: 1,
       //  x: i,
       //  y: 5,
       //  height: 1,
       //  width: 1
-      //});
+      // });
+      // var rainDrop = worldArray.createBlock(blockTypes.DIRT, i, 5);
+      // rainDrop.gravity = true;
       for (var j = 0; j < 100; j++) {
         //var item = {
         //  // gravity: true,

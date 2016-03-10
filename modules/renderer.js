@@ -8,12 +8,20 @@ module.exports = function(terrain) {
   // if (typeof(terrain) != 'World') 
   //   throw 'Error: no world passed to renderer';
   var self = this;
-  var screen = blessed.screen();
+  console.log('Self assignment');
+  var screen = blessed.screen({
+    smartCSR: true,
+    program: program
+  });
   var worldArray = terrain
   var player = worldArray.getPlayer();
   var screenOffsetX = 0;
   var screenOffsetY = 0;
+  console.log('Before clear');
   program.clear();
+  screen.render();
+  screen.realloc();
+  console.log('After clear');
   program.alternateBuffer();
   screen.key(['escape', 'C-c'], function(ch, key) {
       return process.exit(0);
@@ -83,6 +91,7 @@ module.exports = function(terrain) {
       self.playerControls.restoreFromJson();
     }
   });
+  console.log('render defined');
   self.render = function() {
     if (player.x > screenOffsetX + screen.width - 30) {
       screenOffsetX += (screen.width / 2);
@@ -141,7 +150,7 @@ module.exports = function(terrain) {
     setInterval(self.render, 50);
   }
   function renderBlock(block) {
-    //Render it here 
+    //Render it here
     if (block._x != undefined && block._y != undefined) {
       for (var i = 0; i < block.width; i++) {
         for (var j = 0; j < block.height; j++) {

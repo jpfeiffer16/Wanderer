@@ -13,6 +13,13 @@ module.exports = function(worldArray, multiplayer) {
         console.log('World recieved');
         self.playerControls.restoreFromJson(JSON.stringify(world));
       });
+      socket.on('blocks changed', function(blocks) {
+        console.log('Blocks changed');
+        for (var i = 0; i < blocks.length; i++) {
+          var thisBlock = blocks[i];
+          worldArray.updateBlockById(thisBlock.id, thisBlock);
+        }
+      });
       socket.emit('request world', {});
     });
   }

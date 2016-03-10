@@ -17,6 +17,7 @@ if (process.argv[2] == 's') {
   //console.log('Multi');
   //process.exit();
   var world = TerrainGen.genTerrain();
+  console.log('Before render instantiation');
   var renderer = new Renderer(world);
   var gameEngine = new GameEngine(world, true);
   gameEngine.start();
