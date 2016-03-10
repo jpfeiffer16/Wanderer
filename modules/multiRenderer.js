@@ -10,11 +10,12 @@ module.exports = function(terrain) {
   //Event listeners:
   io.on('connection', function(socket) {
     console.log('User connected');
+    //socket.emit('send world', {});
+    socket.on('request world', function(data) {
+      socket.emit('send world', worldArray);
+    });
   });
   
-  io.on('request world', function(socket) {
-    socket.emit('send world', worldArray);
-  });
   
   self.render = function() {
     for (var i = 0; i < worldArray.length; i++) {
@@ -42,6 +43,6 @@ module.exports = function(terrain) {
   }
   function renderBlock(block) {
     //Send changed blocks here
-    io.emit('blocks changed', block);
+    io.sockets.emit('blocks changed', block);
   }
 };

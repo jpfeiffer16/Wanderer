@@ -6,10 +6,14 @@ module.exports = function(worldArray, multiplayer) {
   var self = this;
   self.isMultiplayer = multiplayer;
   if (self.isMultiplayer) {
-    var io = require('socket.io-client');
-    var socket = io('localhost:3030');
-    socket.on('connection', function() {
+    var socket = require('socket.io-client')('http://localhost:3030');
+    socket.on('connect', function() {
       console.log('Connected');
+      socket.on('send world', function(world) {
+        console.log('World recieved');
+        self.playerControls.restoreFromJson(JSON.stringify(world));
+      });
+      socket.emit('request world', {});
     });
   }
   var player = worldArray.getPlayer();
