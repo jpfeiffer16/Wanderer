@@ -30,6 +30,7 @@ module.exports = function(worldArray, multiplayer) {
     //    gravity: true
     //  });
     //}
+    //var blocksToSend = [];
     for (var i = 0; i < worldArray.length; i ++) {
       var item = worldArray[i];
       if (!self.isMultiplayer) {
@@ -41,10 +42,13 @@ module.exports = function(worldArray, multiplayer) {
           }
         }
       }
-      if (self.isMultiplayer) {
-        //Do websockets stuff here.
-      }
+      //if (self.isMultiplayer && (item.changed || item.changed ==undefined)) {
+      //j  blocksToSend.push(item);
+      //j}
     }
+    //if (self.isMultiplayer && blocksToSend.length > 0) {
+    //  io.sockets.emit('blocks changed', blocksToSend);
+    //}
   };
   self.playerControls = {
     moveRight: function() {
