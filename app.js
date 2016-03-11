@@ -5,9 +5,9 @@ var TerrainGen = require('./modules/terrainGen')(),
 if (process.argv[2] == 's') {
   //console.log('server');
   //process.exit();
-  var MultiRenderer = require('./modules/multiRenderer');
+  var ServerRenderer = require('./modules/serverRenderer');
   var world = TerrainGen.genTerrain();
-  var renderer = new MultiRenderer(world);
+  var renderer = new ServerRenderer(world);
   var gameEngine = new GameEngine(world, false);
   gameEngine.start();
   renderer.autoRender();

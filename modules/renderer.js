@@ -10,7 +10,7 @@ module.exports = function(terrain) {
   var self = this;
   var screen = blessed.screen({
     //These were screwing crap up:
-    // smartCSR: true,
+    smartCSR: true
     // program: program
   });
   var worldArray = terrain
@@ -149,7 +149,7 @@ module.exports = function(terrain) {
     if (block._x != undefined && block._y != undefined) {
       for (var i = 0; i < block.width; i++) {
         for (var j = 0; j < block.height; j++) {
-          program.move(block._x + i - screenOffsetX, block._y + j - screenOffsetY);
+          program.move(block._x + i - screenOffsetX, block._y + j - screenOffsetY - 1);
           program.write(' ');
         }
       } 
@@ -167,7 +167,7 @@ module.exports = function(terrain) {
     var rep = Blocks.getBlock(block.type).rep;
     // console.log(rep);
     for (var i = 0; i < rep.length; i++) {
-      program.move(block.x - screenOffsetX, block.y + i - screenOffsetY);
+      program.move(block.x - screenOffsetX, block.y + i - screenOffsetY - 1);
       program.write(rep[i]);
     }
     if (block.type != blockTypes.PLAYER) {

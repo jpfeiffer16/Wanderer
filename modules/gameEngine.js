@@ -14,7 +14,7 @@ module.exports = function(worldArray, multiplayer) {
         self.playerControls.restoreFromJson(JSON.stringify(world));
       });
       socket.on('blocks changed', function(blocks) {
-        console.log('Blocks changed');
+        // console.log('Blocks changed');
         for (var i = 0; i < blocks.length; i++) {
           var thisBlock = blocks[i];
           worldArray.updateBlockById(thisBlock.id, thisBlock);
@@ -50,8 +50,8 @@ module.exports = function(worldArray, multiplayer) {
         }
       }
       //if (self.isMultiplayer && (item.changed || item.changed ==undefined)) {
-      //j  blocksToSend.push(item);
-      //j}
+      //  blocksToSend.push(item);
+      //}
     }
     //if (self.isMultiplayer && blocksToSend.length > 0) {
     //  io.sockets.emit('blocks changed', blocksToSend);
