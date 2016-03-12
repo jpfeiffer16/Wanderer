@@ -56,5 +56,6 @@ module.exports = function(terrain) {
   function renderBlock(block) {
     //Send changed blocks here
     io.sockets.emit('blocks changed', block);
+    console.log('Sending blocks changed');
   }
 };

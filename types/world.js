@@ -1,4 +1,5 @@
 var Blocks = require('./blocks'),
+    Loader = require('../modules/loader'),
     blockTypes = Blocks.blockTypes,
     uuid = require('node-uuid');
 module.exports = (function() {
@@ -93,6 +94,23 @@ module.exports = (function() {
       if (index != null) {
         self.splice(index, 1);
       }
+    },
+    saveJson: function() {
+      Loader.saveFile('./world.json', JSON.stringify(this), function() {
+        console.log('Done saving');
+      });
+      // return JSON.stringify(worldArray);
+    },
+    restoreFromJson: function (json) {
+      var self = this;
+      Loader.loadFile('./world.json', function(data) {
+        self.length = 0;
+        var blocks = JSON.parse(data);
+        for (var i = 0; i < blocks.length; i++) {
+          self.push(blocks[i]);
+        }
+        self.refreshScreen = true;
+      });
     },
     refreshScreen: false,
     blocksToDelete: []

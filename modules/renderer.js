@@ -79,15 +79,18 @@ module.exports = function(terrain) {
   });
   screen.key('m', function() {
     if (self.playerControls != undefined) {
-      self.playerControls.saveJson();
+      worldArray.saveJson();
     }
   });
   screen.key('n', function() {
     if (self.playerControls != undefined) {
-      self.playerControls.restoreFromJson();
+      worldArray.restoreFromJson();
+      //Re-add a ref to the player
+      self.playerControls.getPlayer();
     }
   });
   self.render = function() {
+    var player = self.utilities.getPlayerCoords();
     if (player.x > screenOffsetX + screen.width - 30) {
       screenOffsetX += (screen.width / 2);
       if (self.playerControls != undefined) {
@@ -122,7 +125,7 @@ module.exports = function(terrain) {
       if (item.x > screenOffsetX && item.x < screenOffsetX + screen.width &&
           item.y > screenOffsetY && item.y < screenOffsetY + screen.height) {
         if (item.changed || item.changed == undefined || worldArray.refreshScreen) {
-          renderBlock(item);    
+          renderBlock(item);
         }
       }
       item._x = item.x;

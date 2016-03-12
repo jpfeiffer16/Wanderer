@@ -58,6 +58,14 @@ module.exports = function(worldArray, multiplayer) {
     //  io.sockets.emit('blocks changed', blocksToSend);
     //}
   };
+  self.utilities = {
+    getPlayerCoords: function() {
+      return {
+        x: player.x,
+        y: player.y
+      }
+    }
+  },
   self.playerControls = {
     moveRight: function() {
       var oneBlockEmpty = worldArray.getBlock(player.x + 1, player.y) == null;
@@ -164,24 +172,9 @@ module.exports = function(worldArray, multiplayer) {
     reRender: function() {
       worldArray.refreshScreen = true;
     },
-    //TODO: Move these into the World type:
-    saveJson: function() {
-      Loader.saveFile('./world.json', JSON.stringify(worldArray), function() {
-        console.log('Done saving');
-      });
-      // return JSON.stringify(worldArray);
-    },
-    restoreFromJson: function (json) {
-      Loader.loadFile('./world.json', function(data) {
-        worldArray.length = 0;
-        var blocks = JSON.parse(data);
-        for (var i = 0; i < blocks.length; i++) {
-          worldArray.push(blocks[i]);
-        }
-        worldArray.refreshScreen = true;
-        //Re-add our reference to the player since we've lost it when we reloaded
-        player = worldArray.getPlayer();
-      });
+    getPlayer: function() {
+      //Re-add our reference to the player
+      player = worldArray.getPlayer();
     }
   };
   
