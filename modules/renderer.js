@@ -131,7 +131,7 @@ module.exports = function(terrain) {
     if (worldArray.blocksToDelete.length > 0) {
       for (var i = 0; i < worldArray.blocksToDelete.length; i++) {
         var block = worldArray.blocksToDelete[i];
-        program.move(block.x - screenOffsetX, block.y - screenOffsetY);
+        program.move(block.x - screenOffsetX, block.y - screenOffsetY - 1);
         program.write(' ');
       }
       worldArray.blocksToDelete = [];

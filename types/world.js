@@ -48,16 +48,28 @@ module.exports = (function() {
       }
       return null;
     },
-    getPlayer: function() {
+    getPlayer: function(playerId) {
       var self = this;
+			var returnFirst = false;
+      if (playerId == undefined) {
+				returnFirst = true;	
+      }
       for (var i = 0; i < this.length; i++) {
         var item = self[i];
         if (item.type == 0) {
-          return item;
+					if (returnFirst)
+						return item;
+					if (item.id = playerId)
+						return item;
         }
       }
       return null;
     },
+		createPlayer: function() {
+			var newPlayer = Blocks.getBlock(blockTypes.PLAYER).properties;
+			this.push(newPlayer);
+			return newPlayer;
+		},
     createBlock: function(type, x, y) {
       var block = Blocks.getBlock(type).properties;
       block.x = x;
