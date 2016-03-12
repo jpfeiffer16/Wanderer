@@ -16,6 +16,7 @@ if (process.argv[2] == 's') {
 } else if (process.argv[2] == 'm') {
   //console.log('Multi');
   //process.exit();
+  //TODO: Need to change this up to use the new Reactor type instead of a GameEngine when the module is finished.
   var world = TerrainGen.genTerrain();
   console.log('Before render instantiation');
   var renderer = new Renderer(world);

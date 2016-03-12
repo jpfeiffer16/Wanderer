@@ -9,9 +9,10 @@ module.exports = function(worldArray, multiplayer) {
     var socket = require('socket.io-client')('http://localhost:3030');
     socket.on('connect', function() {
       console.log('Connected');
-      socket.on('send world', function(world) {
+      socket.on('send world', function(data) {
         console.log('World recieved');
-        self.playerControls.restoreFromJson(JSON.stringify(world));
+        self.playerControls.restoreFromJson(JSON.stringify(data.world));
+        player = worldArray.getPlayer(data.playerId);
       });
       socket.on('blocks changed', function(blocks) {
         // console.log('Blocks changed');
@@ -163,6 +164,7 @@ module.exports = function(worldArray, multiplayer) {
     reRender: function() {
       worldArray.refreshScreen = true;
     },
+    //TODO: Move these into the World type:
     saveJson: function() {
       Loader.saveFile('./world.json', JSON.stringify(worldArray), function() {
         console.log('Done saving');

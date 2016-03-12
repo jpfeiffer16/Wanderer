@@ -12,7 +12,14 @@ module.exports = function(terrain) {
     console.log('User connected');
     //socket.emit('send world', {});
     socket.on('request world', function(data) {
-      socket.emit('send world', worldArray);
+      var playerId = data.playerId;
+      if (data.playerId == undefined) {
+        playerId = worldArray.createPlayer(33, 10).id;
+      }
+      socket.emit('send world', {
+        playerId: playerId,
+        world: worldArray
+      });
     });
   });
   
