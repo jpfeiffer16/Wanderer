@@ -65,8 +65,10 @@ module.exports = (function() {
       }
       return null;
     },
-		createPlayer: function() {
+		createPlayer: function(x, y) {
 			var newPlayer = Blocks.getBlock(blockTypes.PLAYER).properties;
+      newPlayer.x = x;
+      newPlayer.y = y;
 			this.push(newPlayer);
 			return newPlayer;
 		},

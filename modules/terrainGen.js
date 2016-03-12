@@ -57,12 +57,14 @@ module.exports = function() {
     //   width: 1,
     //   gravity: true
     // });
-    var player = Blocks.getBlock(blockTypes.PLAYER).properties;
-    player.x = 33;
-    player.y = 10;
     
-    
-    worldArray.push(player);
+    // var player = Blocks.getBlock(blockTypes.PLAYER).properties;
+    // player.x = 33;
+    // player.y = 10;
+    // 
+    // 
+    // worldArray.push(player);
+    worldArray.createPlayer(33, 10);
 
     return worldArray;
   }
