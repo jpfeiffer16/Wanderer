@@ -16,10 +16,12 @@ module.exports = function(terrain) {
       if (data.playerId == undefined) {
         playerId = worldArray.createPlayer(33, 10).id;
       }
+      console.log('begin sending world');
       socket.emit('send world', {
         playerId: playerId,
         world: worldArray
       });
+      console.log('after sending world');
     });
   });
   
