@@ -36,8 +36,10 @@ module.exports = function(terrain) {
       }
       item._x = item.x;
       item._y = item.y;
+      item.changed = false;
     }
     if (blocksToSend.length > 0) {
+      console.log('Sending blocks changed');
       io.sockets.emit('blocks changed', blocksToSend);
     }
     if (worldArray.blocksToDelete.length > 0) {
@@ -54,10 +56,5 @@ module.exports = function(terrain) {
   
   self.autoRender = function () {
     setInterval(self.render, 50);
-  }
-  function renderBlock(block) {
-    //Send changed blocks here
-    io.sockets.emit('blocks changed', block);
-    console.log('Sending blocks changed');
   }
 };

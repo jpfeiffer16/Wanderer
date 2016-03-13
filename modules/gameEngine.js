@@ -50,13 +50,7 @@ module.exports = function(worldArray, multiplayer) {
           }
         }
       }
-      //if (self.isMultiplayer && (item.changed || item.changed ==undefined)) {
-      //  blocksToSend.push(item);
-      //}
     }
-    //if (self.isMultiplayer && blocksToSend.length > 0) {
-    //  io.sockets.emit('blocks changed', blocksToSend);
-    //}
   };
   self.utilities = {
     getPlayerCoords: function() {
