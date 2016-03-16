@@ -55,10 +55,10 @@ module.exports = function(worldArray) {
     },
     jump: function() {
       sendEvent('jump');
-    }
-    // reRender: function() {
-    //   sendEvent('reRender');
-    // },
+    },
+    reRender: function() {
+      worldArray.refreshScreen = true;
+    },
     // getPlayer: function() {
     //   sendEvent('getPlayer');
     // }

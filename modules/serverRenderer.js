@@ -17,6 +17,7 @@ module.exports = function(terrain) {
         playerId = worldArray.createPlayer(33, 10).id;
       }
       console.log('begin sending world');
+      console.log(playerId);
       socket.emit('send world', {
         playerId: playerId,
         world: worldArray

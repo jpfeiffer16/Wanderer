@@ -70,6 +70,7 @@ module.exports = (function() {
 			var newPlayer = Blocks.getBlock(blockTypes.PLAYER).properties;
       newPlayer.x = x;
       newPlayer.y = y;
+      newPlayer.id = uuid.v4();
 			this.push(newPlayer);
 			return newPlayer;
 		},

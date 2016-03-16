@@ -89,29 +89,37 @@ module.exports = function(terrain) {
       self.playerControls.getPlayer();
     }
   });
+  screen.key('p', function() {
+    screenOffsetY++;
+    worldArray.refreshScreen = true;
+  });
+  screen.key('l', function() {
+    screenOffsetX++;
+    worldArray.refreshScreen = true;
+  });
   self.render = function() {
     var player = self.utilities.getPlayerCoords();
     if (player.x > screenOffsetX + screen.width - 30) {
-      screenOffsetX += (screen.width / 2);
+      // screenOffsetX += (screen.width / 2);
       if (self.playerControls != undefined) {
         self.playerControls.reRender();
       }
     }
     if (player.x < screenOffsetX + 30) {
-      screenOffsetX -= (screen.width / 2);
+      // screenOffsetX -= (screen.width / 2);
       if (self.playerControls != undefined) {
         self.playerControls.reRender();
       }
     }
     if (player.y > screenOffsetY + screen.height - 5) {
-      screenOffsetY += 10;
+      // screenOffsetY += 10;
       //screenOffsetY += (screen.height / 2);
       if (self.playerControls != undefined) {
         self.playerControls.reRender();
       }
     }
     if (player.y < screenOffsetY) {
-      screenOffsetY -= 10;
+      // screenOffsetY -= 10;
       //screenOffsetY += (screen.height / 2);
       if (self.playerControls != undefined) {
         self.playerControls.reRender();
@@ -119,6 +127,8 @@ module.exports = function(terrain) {
     }
     if (worldArray.refreshScreen) {
       program.clear();
+      screenOffsetX = player.x - 40;
+      screenOffsetY = player.y - 20;
     }
     for (var i = 0; i < worldArray.length; i++) {
       var item = worldArray[i];
