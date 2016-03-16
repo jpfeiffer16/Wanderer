@@ -39,7 +39,8 @@ module.exports = function(terrain) {
       item.changed = false;
     }
     if (blocksToSend.length > 0) {
-      console.log('Sending blocks changed');
+      // console.log('Sending blocks changed');
+      // console.log(blocksToSend.length);
       io.sockets.emit('blocks changed', blocksToSend);
     }
     if (worldArray.blocksToDelete.length > 0) {

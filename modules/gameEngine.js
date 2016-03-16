@@ -1,29 +1,9 @@
 var Loader = require('./loader'),
     blockTypes = require('../types/blocks').blockTypes;
-module.exports = function(worldArray, multiplayer) {
+module.exports = function(worldArray) {
   if (worldArray.getPlayer() == null)
     throw 'Error: No player found in specified world';
   var self = this;
-  self.isMultiplayer = multiplayer;
-  if (self.isMultiplayer) {
-    var socket = require('socket.io-client')('http://localhost:3030');
-    socket.on('connect', function() {
-      console.log('Connected');
-      socket.on('send world', function(data) {
-        console.log('World recieved');
-        self.playerControls.restoreFromJson(JSON.stringify(data.world));
-        player = worldArray.getPlayer(data.playerId);
-      });
-      socket.on('blocks changed', function(blocks) {
-        // console.log('Blocks changed');
-        for (var i = 0; i < blocks.length; i++) {
-          var thisBlock = blocks[i];
-          worldArray.updateBlockById(thisBlock.id, thisBlock);
-        }
-      });
-      socket.emit('request world', {});
-    });
-  }
   var player = worldArray.getPlayer();
   self.loop = function() {
     //Check the forcast for huge-ass drops of rain.

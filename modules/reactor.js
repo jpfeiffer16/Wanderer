@@ -16,6 +16,7 @@ module.exports = function(worldArray) {
       for (var i = 0; i < blocks.length; i++) {
         var thisBlock = blocks[i];
         worldArray.updateBlockById(thisBlock.id, thisBlock);
+        // console.log('Updating block');
       }
     });
     socket.emit('request world', {});
