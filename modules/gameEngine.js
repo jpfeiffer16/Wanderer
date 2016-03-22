@@ -21,13 +21,11 @@ module.exports = function(worldArray) {
     //var blocksToSend = [];
     for (var i = 0; i < worldArray.length; i ++) {
       var item = worldArray[i];
-      if (!self.isMultiplayer) {
-        //Gravity
-        if (item.gravity) {
-          if (worldArray.getBlock(item.x, item.y + item.height) == null) {
-            item.changed = true;
-            item.y++;
-          }
+      //Gravity
+      if (item.gravity) {
+        if (worldArray.getBlock(item.x, item.y + item.height) == null) {
+          item.changed = true;
+          item.y++;
         }
       }
     }

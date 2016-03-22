@@ -1,7 +1,8 @@
 var blessed = require('blessed'),
     program = blessed.program(),
     Blocks = require('../types/blocks'),
-    blockTypes = Blocks.blockTypes;
+    blockTypes = Blocks.blockTypes,
+    logger = require('./logger');
 
 module.exports = function(terrain) {
   //Do some sanity checks:
@@ -126,6 +127,7 @@ module.exports = function(terrain) {
       }
     }
     if (worldArray.refreshScreen) {
+      logger.log('Refreshing screen');
       program.clear();
       screenOffsetX = player.x - 40;
       screenOffsetY = player.y - 20;
