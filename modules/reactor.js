@@ -14,6 +14,7 @@ module.exports = function(worldArray) {
       logger.log('Player after: ' + JSON.stringify(player));
     });
     socket.on('blocks changed', function(blocks) {
+      logger.log('Blocks changed: ' + blocks.length);
       for (var i = 0; i < blocks.length; i++) {
         var thisBlock = blocks[i];
         worldArray.updateBlockById(thisBlock.id, thisBlock);

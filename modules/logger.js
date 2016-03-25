@@ -9,7 +9,8 @@ module.exports = (function() {
         if (typeof callback == 'function') callback();
       });
     };
-    fs.appendFile('./log.txt', '\n# Run: ' + Date.now().toString() + '\n', function(err) {
+    var now = new Date();
+    fs.appendFile('./log.txt', '\n# Run: ' + now.toLocaleDateString() + ", " + now.toLocaleTimeString() + '\n', function(err) {
       if (err) throw err;
     });
   }
