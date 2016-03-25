@@ -65,7 +65,6 @@ module.exports = function(worldArray) {
     // }
   }
   
-  
   function sendEvent(eventName) {
     socket.emit(eventName, {
       playerId: player.id

@@ -6,19 +6,7 @@ module.exports = function(worldArray) {
   var self = this;
   var player = worldArray.getPlayer();
   self.loop = function() {
-    //Check the forcast for huge-ass drops of rain.
-    //var chanceRain = Math.random() < .1;
-    //if (chanceRain) {
-    //  worldArray.push({
-    //    type: 1,
-    //    x: Math.round(Math.random() * 80, 0),
-    //    y: 3,
-    //    height: 1,
-    //    width: 1,
-    //    gravity: true
-    //  });
-    //}
-    //var blocksToSend = [];
+    //TODO: Check the forcast for huge-ass drops of rain and other assorted horrible weather.
     for (var i = 0; i < worldArray.length; i ++) {
       var item = worldArray[i];
       //Gravity
@@ -108,30 +96,12 @@ module.exports = function(worldArray) {
       var topBlockEmpty = worldArray.getBlock(player.x, player.y - 1) == null;
       if (topBlockEmpty) {
         player.y--;
-        //TODO: Should probably create a method for doing this
-        //worldArray.push({
-        //  type: 1,
-        //  height: 1,
-        //  width: 1,
-        //  changed: true,
-        //  x: player.x,
-        //  y: player.y + player.height
-        //});
         worldArray.createBlock(blockTypes.DIRT, player.x, player.y + player.height);
       }
     },
     placeUp: function() {
       var topBlockEmpty = worldArray.getBlock(player.x, player.y - 1) == null;
       if (topBlockEmpty) {
-        //TODO: Should probably create a method for doing this
-        //worldArray.push({
-        //  type: 1,
-        //  height: 1,
-        //  width: 1,
-        //  changed: true,
-        //  x: player.x,
-        //  y: player.y - 1
-        //});
         worldArray.createBlock(blockTypes.DIRT, player.x, player.y - 1);
       }
     },

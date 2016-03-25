@@ -11,7 +11,7 @@ module.exports = function(terrain) {
   var self = this;
   var screen = blessed.screen({
     //These were screwing crap up:
-    smartCSR: true
+    // smartCSR: true
     // program: program
   });
   var worldArray = terrain
@@ -101,27 +101,21 @@ module.exports = function(terrain) {
   self.render = function() {
     var player = self.utilities.getPlayerCoords();
     if (player.x > screenOffsetX + screen.width - 30) {
-      // screenOffsetX += (screen.width / 2);
       if (self.playerControls != undefined) {
         self.playerControls.reRender();
       }
     }
     if (player.x < screenOffsetX + 30) {
-      // screenOffsetX -= (screen.width / 2);
       if (self.playerControls != undefined) {
         self.playerControls.reRender();
       }
     }
     if (player.y > screenOffsetY + screen.height - 5) {
-      // screenOffsetY += 10;
-      //screenOffsetY += (screen.height / 2);
       if (self.playerControls != undefined) {
         self.playerControls.reRender();
       }
     }
     if (player.y < screenOffsetY) {
-      // screenOffsetY -= 10;
-      //screenOffsetY += (screen.height / 2);
       if (self.playerControls != undefined) {
         self.playerControls.reRender();
       }
@@ -169,18 +163,7 @@ module.exports = function(terrain) {
         }
       } 
     }
-    //program.move(block.x - screenOffsetX, block.y - screenOffsetY);
-    // if (block.type == 1) { 
-    //   program.write('█');
-    //   block.changed = false;
-    // }
-    // if (block.type == 0) {
-    //   program.write('x');
-    //   program.move(block.x - screenOffsetX, block.y + 1 - screenOffsetY);
-    //   program.write('|');
-    // }
     var rep = Blocks.getBlock(block.type).rep;
-    // console.log(rep);
     for (var i = 0; i < rep.length; i++) {
       program.move(block.x - screenOffsetX, block.y + i - screenOffsetY - 1);
       program.write(rep[i]);

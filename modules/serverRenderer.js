@@ -4,13 +4,11 @@ var Blocks = require('../types/blocks'),
 
 module.exports = function(terrain) {
   var self = this;
-  var worldArray = terrain
-  // var player = worldArray.getPlayer();
+  var worldArray = terrain;
   
   //Event listeners:
   io.on('connection', function(socket) {
     console.log('User connected');
-    //socket.emit('send world', {});
     socket.on('request world', function(data) {
       var playerId = data.playerId;
       if (data.playerId == undefined) {
@@ -26,13 +24,11 @@ module.exports = function(terrain) {
     });
   });
   
-  
   self.render = function() {
     var blocksToSend = [];
     for (var i = 0; i < worldArray.length; i++) {
       var item = worldArray[i];
       if (item.changed || item.changed == undefined || worldArray.refreshScreen) {
-        // renderBlock(item);
         blocksToSend.push(item);
       }
       item._x = item.x;
@@ -40,14 +36,11 @@ module.exports = function(terrain) {
       item.changed = false;
     }
     if (blocksToSend.length > 0) {
-      // console.log('Sending blocks changed');
-      // console.log(blocksToSend.length);
       io.sockets.emit('blocks changed', blocksToSend);
     }
     if (worldArray.blocksToDelete.length > 0) {
       for (var i = 0; i < worldArray.blocksToDelete.length; i++) {
         var block = worldArray.blocksToDelete[i];
-        //Send delete events here
       }
       worldArray.blocksToDelete = [];
     }
