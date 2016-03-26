@@ -25,6 +25,7 @@ module.exports = function(worldArray) {
   
   self.utilities = {
     getPlayerCoords: function() {
+      // logger.log('Returning player: ' + JSON.stringify(player));
       return {
         x: player.x,
         y: player.y

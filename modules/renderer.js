@@ -126,17 +126,21 @@ module.exports = function(terrain) {
       screenOffsetX = player.x - 40;
       screenOffsetY = player.y - 20;
     }
+    //NOTE: Testing var
+    // var blocksBeingRendered = 0;
     for (var i = 0; i < worldArray.length; i++) {
       var item = worldArray[i];
       if (item.x > screenOffsetX && item.x < screenOffsetX + screen.width &&
           item.y > screenOffsetY && item.y < screenOffsetY + screen.height) {
         if (item.changed || item.changed == undefined || worldArray.refreshScreen) {
           renderBlock(item);
+          // blocksBeingRendered++;
         }
       }
       item._x = item.x;
       item._y = item.y;
     }
+    // logger.log('Blocks being rendered: ' + blocksBeingRendered);
     if (worldArray.blocksToDelete.length > 0) {
       for (var i = 0; i < worldArray.blocksToDelete.length; i++) {
         var block = worldArray.blocksToDelete[i];
