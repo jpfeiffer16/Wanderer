@@ -1,5 +1,6 @@
 var Loader = require('./loader'),
-    blockTypes = require('../types/blocks').blockTypes;
+    blockTypes = require('../types/blocks').blockTypes,
+    logger = require('./logger');
 module.exports = function(worldArray) {
   // if (worldArray.getPlayer() == null)
   //   throw 'Error: No player found in specified world';
@@ -117,6 +118,7 @@ module.exports = function(worldArray) {
     getPlayer: function() {
       //Re-add our reference to the player
       player = worldArray.getPlayer();
+      logger.log('Updating user in game engine');      
     }
   };
   

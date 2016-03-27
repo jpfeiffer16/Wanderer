@@ -4,7 +4,7 @@ var World = require('../types/world'),
 module.exports = function() {
   var self = this;
   
-  var genTerrain = function() {
+  var genTerrain = function(addPlayer) {
     var worldArray = new World();
     for (var i = 0; i < 300; i++) {
       var ranNum = Math.round(((Math.random() * 100) / 10), 0);
@@ -12,7 +12,9 @@ module.exports = function() {
         worldArray.createBlock(blockTypes.DIRT, i, j + 40);
       }
     }
-    // worldArray.createPlayer(33, 10);
+    if (addPlayer) {
+      worldArray.createPlayer(33, 10);
+    }
     return worldArray;
   }
   

@@ -21,7 +21,7 @@ if (process.argv[2] == 's') {
   renderer.playerControls = reactor.playerControls;
   renderer.utilities = reactor.utilities;
 } else {
-  var world = TerrainGen.genTerrain();
+  var world = TerrainGen.genTerrain(true);
   var renderer = new Renderer(world);
   var gameEngine = new GameEngine(world, false);
   gameEngine.start();
