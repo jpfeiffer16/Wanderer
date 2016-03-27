@@ -66,10 +66,10 @@ module.exports = (function() {
       for (var i = 0; i < this.length; i++) {
         var item = self[i];
       if (item.type == 0) {
-      if (returnFirst)
-              return item;
-      if (item.id = playerId)
-              return item;
+        if (returnFirst)
+          return item;
+        if (item.id = playerId)
+          return item;
         }
       }
       return null;
