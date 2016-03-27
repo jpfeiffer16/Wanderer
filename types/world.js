@@ -49,6 +49,8 @@ module.exports = (function() {
           replaceWith.changed = true;
           replaceWith._x = item._x;
           replaceWith._y = item._y;
+          //Keep the original id to avoid inadvertant data collision
+          replaceWith.id = id;
           this[i] = replaceWith;
           logger.log('Block changed: ' + JSON.stringify(item));
         }
@@ -65,7 +67,7 @@ module.exports = (function() {
       }
       for (var i = 0; i < this.length; i++) {
         var item = self[i];
-      if (item.type == 0) {
+        if (item.type == 0) {
         if (returnFirst)
           return item;
         if (item.id = playerId)
