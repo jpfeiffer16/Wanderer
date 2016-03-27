@@ -59,30 +59,30 @@ module.exports = (function() {
     },
     getPlayer: function(playerId) {
       var self = this;
-			var returnFirst = false;
+      var returnFirst = false;
       if (playerId == undefined) {
-				returnFirst = true;	
+        returnFirst = true;	
       }
       for (var i = 0; i < this.length; i++) {
         var item = self[i];
-        if (item.type == 0) {
-					if (returnFirst)
-						return item;
-					if (item.id = playerId)
-						return item;
+      if (item.type == 0) {
+      if (returnFirst)
+              return item;
+      if (item.id = playerId)
+              return item;
         }
       }
       return null;
     },
-		createPlayer: function(x, y) {
-			var newPlayer = Blocks.getBlock(blockTypes.PLAYER).properties;
+    createPlayer: function(x, y) {
+      var newPlayer = Blocks.getBlock(blockTypes.PLAYER).properties;
       newPlayer.x = x;
       newPlayer.y = y;
       newPlayer.id = uuid.v4();
-			this.push(newPlayer);
+      this.push(newPlayer);
       this.blocksToAdd.push(JSON.parse(JSON.stringify(newPlayer)));
-			return newPlayer;
-		},
+        return newPlayer;
+      },
     createBlock: function(type, x, y) {
       var block = Blocks.getBlock(type).properties;
       block.x = x;
