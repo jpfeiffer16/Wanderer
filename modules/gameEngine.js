@@ -1,8 +1,8 @@
 var Loader = require('./loader'),
     blockTypes = require('../types/blocks').blockTypes;
 module.exports = function(worldArray) {
-  if (worldArray.getPlayer() == null)
-    throw 'Error: No player found in specified world';
+  // if (worldArray.getPlayer() == null)
+  //   throw 'Error: No player found in specified world';
   var self = this;
   var player = worldArray.getPlayer();
   self.loop = function() {

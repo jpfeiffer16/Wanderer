@@ -12,7 +12,7 @@ module.exports = function() {
         worldArray.createBlock(blockTypes.DIRT, i, j + 40);
       }
     }
-    worldArray.createPlayer(33, 10);
+    // worldArray.createPlayer(33, 10);
     return worldArray;
   }
   

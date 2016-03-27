@@ -18,6 +18,9 @@ module.exports = function(terrain) {
   var player = worldArray.getPlayer();
   var screenOffsetX = 0;
   var screenOffsetY = 0;
+  // this.resetWorld = function(newWorld) {
+  //   worldArray = newWorld();
+  // };
   program.clear();
   program.alternateBuffer();
   screen.key(['escape', 'C-c'], function(ch, key) {
@@ -99,32 +102,43 @@ module.exports = function(terrain) {
     worldArray.refreshScreen = true;
   });
   self.render = function() {
-    var player = self.utilities.getPlayerCoords();
-    if (player.x > screenOffsetX + screen.width - 30) {
+    var playerCoords = self.utilities.getPlayerCoords();
+    // if (self.utilities.worldNeedsUpdate) {
+    //   worldArray = self.utilities.getWorld();
+    //   self.utilities.worldNeedsUpdate = false;
+    // }
+    // logger.log(JSON.stringify(playerCoords));
+    // logger.log('SceenOffsetX: ' + screenOffsetX + ' , ScreenOffsetY: ' + screenOffsetY + ' , ScreenWidth: ' +
+    //   screen.width + ' , ScreenHeight: ' + screen.height + ' , PlayerX: ' + player.x + ' , PlayerY: ' + player.y);
+    if (playerCoords.x > screenOffsetX + screen.width - 30) {
       if (self.playerControls != undefined) {
         self.playerControls.reRender();
+        logger.log('Changing screen offset. Player x: ' + playerCoords.x + ', Player y: ' + playerCoords.y);
       }
     }
-    if (player.x < screenOffsetX + 30) {
+    if (playerCoords.x < screenOffsetX + 30) {
       if (self.playerControls != undefined) {
         self.playerControls.reRender();
+        logger.log('Changing screen offset. Player x: ' + playerCoords.x + ', Player y: ' + playerCoords.y);
       }
     }
-    if (player.y > screenOffsetY + screen.height - 5) {
+    if (playerCoords.y > screenOffsetY + screen.height - 5) {
       if (self.playerControls != undefined) {
         self.playerControls.reRender();
+        logger.log('Changing screen offset. Player x: ' + playerCoords.x + ', Player y: ' + playerCoords.y);
       }
     }
-    if (player.y < screenOffsetY) {
+    if (playerCoords.y < screenOffsetY) {
       if (self.playerControls != undefined) {
         self.playerControls.reRender();
+        logger.log('Changing screen offset. Player x: ' + playerCoords.x + ', Player y: ' + playerCoords.y);
       }
     }
     if (worldArray.refreshScreen) {
-      logger.log('Refreshing screen');
+      // logger.log('Refreshing screen');
       program.clear();
-      screenOffsetX = player.x - 40;
-      screenOffsetY = player.y - 20;
+      screenOffsetX = playerCoords.x - 40;
+      screenOffsetY = playerCoords.y - 20;
     }
     //NOTE: Testing var
     // var blocksBeingRendered = 0;
