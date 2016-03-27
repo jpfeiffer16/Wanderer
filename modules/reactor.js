@@ -13,7 +13,7 @@ module.exports = function(worldArray, server) {
       worldArray.restoreFromJson(JSON.stringify(data.world));
       currentPlayerId = data.playerId;
       player = worldArray.getPlayer(data.playerId);
-      self.utilities.worldNeedsUpdate = true;
+      //self.utilities.worldNeedsUpdate = true;
       logger.log('Player after: ' + JSON.stringify(player));
       logger.log('Got Player: ' + data.playerId);      
     });
@@ -22,6 +22,7 @@ module.exports = function(worldArray, server) {
       for (var i = 0; i < blocks.length; i++) {
         var thisBlock = blocks[i];
         worldArray.updateBlockById(thisBlock.id, thisBlock);
+        logger.log('currentPlayerId: ' + currentPlayerId + ', player: ' + JSON.stringify(player));
       }
       player = worldArray.getPlayer(currentPlayerId);
       // self.utilities.worldNeedsUpdate = true;
@@ -94,7 +95,7 @@ module.exports = function(worldArray, server) {
   
   function sendEvent(eventName) {
     socket.emit(eventName, {
-      playerId: player.id
+      playerId:currentPlayerId 
     });
   }
 };
