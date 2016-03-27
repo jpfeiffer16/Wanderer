@@ -2,7 +2,7 @@
 //It will contain a mock playerControls object that will simply relay the changes to the server via websockets.
 var logger = require('./logger');
 module.exports = function(worldArray, server) {
-	var socket = require('socket.io-client')(server);
+  var socket = require('socket.io-client')(server);
   var player = worldArray.getPlayer();
   var currentPlayerId = null;
   var self = this;

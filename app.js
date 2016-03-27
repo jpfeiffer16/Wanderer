@@ -12,10 +12,11 @@ if (process.argv[2] == 's') {
   renderer.autoRender();
   console.log('Server running');
 } else if (process.argv[2] == 'm') {
-  var server = process.argv[3] != undefined ? process.arv[3] : 'http://localhost:3030';
+  console.log(process.argv[3]);
+  var server = process.argv[3] != undefined ? process.argv[3] : 'http://localhost:3030';
   var world = TerrainGen.genTerrain();
   var renderer = new Renderer(world);
-  var reactor = new Reactor(world);
+  var reactor = new Reactor(world, server);
   renderer.autoRender();
   renderer.playerControls = reactor.playerControls;
   renderer.utilities = reactor.utilities;
