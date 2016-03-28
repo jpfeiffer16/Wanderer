@@ -1,6 +1,7 @@
 var Blocks = require('../types/blocks'),
     blockTypes = Blocks.blockTypes,
-    io = require('socket.io')(3030);
+    io = require('socket.io')(3030),
+    logger = require('./logger');
 
 module.exports = function(terrain) {
   var self = this;
@@ -25,6 +26,8 @@ module.exports = function(terrain) {
     });
     //Client Events
     socket.on('moveRight', function(data) {
+      //logger.log('MoveRight: ' + JSON.stringify(data));
+      logger.log('MoveRight: ' + data.playerId);
       var player = worldArray.getPlayer(data.playerId);
       if (player != null) {
         var oneBlockEmpty = worldArray.getBlock(player.x + 1, player.y) == null;
