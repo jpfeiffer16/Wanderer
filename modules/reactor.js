@@ -25,6 +25,7 @@ module.exports = function(worldArray, server) {
       for (var i = 0; i < blocks.length; i++) {
         var thisBlock = blocks[i];
         worldArray.updateBlockById(thisBlock.id, thisBlock);
+        logger.log('block:  ' + JSON.stringify(blocks[i]));
         logger.log('currentPlayerId: ' + currentPlayerId + ', player: ' + JSON.stringify(player));
       }
       player = worldArray.getPlayer(currentPlayerId);

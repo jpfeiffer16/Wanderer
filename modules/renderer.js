@@ -113,25 +113,25 @@ module.exports = function(terrain) {
     if (playerCoords.x > screenOffsetX + screen.width - 30) {
       if (self.playerControls != undefined) {
         self.playerControls.reRender();
-        logger.log('Changing screen offset. Player x: ' + playerCoords.x + ', Player y: ' + playerCoords.y);
+        //logger.log('Changing screen offset. Player x: ' + playerCoords.x + ', Player y: ' + playerCoords.y);
       }
     }
     if (playerCoords.x < screenOffsetX + 30) {
       if (self.playerControls != undefined) {
         self.playerControls.reRender();
-        logger.log('Changing screen offset. Player x: ' + playerCoords.x + ', Player y: ' + playerCoords.y);
+        //logger.log('Changing screen offset. Player x: ' + playerCoords.x + ', Player y: ' + playerCoords.y);
       }
     }
     if (playerCoords.y > screenOffsetY + screen.height - 5) {
       if (self.playerControls != undefined) {
         self.playerControls.reRender();
-        logger.log('Changing screen offset. Player x: ' + playerCoords.x + ', Player y: ' + playerCoords.y);
+        //logger.log('Changing screen offset. Player x: ' + playerCoords.x + ', Player y: ' + playerCoords.y);
       }
     }
     if (playerCoords.y < screenOffsetY) {
       if (self.playerControls != undefined) {
         self.playerControls.reRender();
-        logger.log('Changing screen offset. Player x: ' + playerCoords.x + ', Player y: ' + playerCoords.y);
+        //logger.log('Changing screen offset. Player x: ' + playerCoords.x + ', Player y: ' + playerCoords.y);
       }
     }
     if (worldArray.refreshScreen) {
@@ -146,7 +146,8 @@ module.exports = function(terrain) {
       var item = worldArray[i];
       if (item.x > screenOffsetX && item.x < screenOffsetX + screen.width &&
           item.y > screenOffsetY && item.y < screenOffsetY + screen.height) {
-        if (item.changed || item.changed == undefined || worldArray.refreshScreen) {
+        if (item.changed || item.changed == undefined || worldArray.refreshScreen || 
+          item.x != item._x || item.y != item._y) {
           renderBlock(item);
           // blocksBeingRendered++;
         }

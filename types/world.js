@@ -41,7 +41,7 @@ module.exports = (function() {
       return null;
     },
     updateBlockById: function(id, newBlock) {
-      var begin = Date.now();
+      //var begin = Date.now();
       for (var i = 0; i < this.length; i++) {
         var item = this[i];
         if (item.id == id) {
@@ -55,9 +55,9 @@ module.exports = (function() {
           logger.log('Block changed: ' + JSON.stringify(item));
         }
       }
-      var elapsed = Date.now() - begin;
-      logger.log('Block update took ' + elapsed + 'ms');
-      logger.log('World size: ' + this.length);
+      //var elapsed = Date.now() - begin;
+      //logger.log('Block update took ' + elapsed + 'ms');
+      //logger.log('World size: ' + this.length);
     },
     getPlayer: function(playerId) {
       var self = this;

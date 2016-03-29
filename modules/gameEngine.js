@@ -118,7 +118,7 @@ module.exports = function(worldArray) {
     getPlayer: function() {
       //Re-add our reference to the player
       player = worldArray.getPlayer();
-      logger.log('Updating user in game engine');      
+      //logger.log('Updating user in game engine');      
     }
   };
   
