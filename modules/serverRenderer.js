@@ -174,5 +174,9 @@ module.exports = function(terrain) {
   
   self.autoRender = function () {
     setInterval(self.render, 50);
+    setTimeout(function() {
+      var fs = require('fs');
+      fs.writeFile('server-world', JSON.stringify(worldArray), 'utf8');
+    }, 20000);
   }
 };

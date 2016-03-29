@@ -15,7 +15,10 @@ module.exports = function(worldArray, server) {
       player = worldArray.getPlayer(data.playerId);
       //self.utilities.worldNeedsUpdate = true;
       logger.log('Player after: ' + JSON.stringify(player));
-      logger.log('Got Player: ' + data.playerId);      
+      logger.log('Got Player: ' + data.playerId);
+      // var uuid = require('node-uuid');
+      // var fs = require('fs');
+      // fs.writeFile('./world' + uuid.v4() + '.json', JSON.stringify(data.world), 'utf8');
     });
     socket.on('blocks changed', function(blocks) {
       logger.log('Blocks changed: ' + blocks.length);
