@@ -68,10 +68,10 @@ module.exports = (function() {
       for (var i = 0; i < this.length; i++) {
         var item = self[i];
         if (item.type == 0) {
-        if (returnFirst)
-          return item;
-        if (item.id = playerId)
-          return item;
+          if (returnFirst)
+            return item;
+          if (item.id = playerId)
+            return item;
         }
       }
       return null;
@@ -82,9 +82,10 @@ module.exports = (function() {
       newPlayer.y = y;
       newPlayer.id = uuid.v4();
       this.push(newPlayer);
-      this.blocksToAdd.push(JSON.parse(JSON.stringify(newPlayer)));
-        return newPlayer;
-      },
+      //this.blocksToAdd.push(JSON.parse(JSON.stringify(newPlayer)));
+      this.blocksToAdd.push(newPlayer);
+      return newPlayer;
+    },
     createBlock: function(type, x, y) {
       var block = Blocks.getBlock(type).properties;
       block.x = x;

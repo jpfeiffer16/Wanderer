@@ -29,6 +29,7 @@ module.exports = function(terrain) {
       //logger.log('MoveRight: ' + JSON.stringify(data));
       logger.log('MoveRight: ' + data.playerId);
       var player = worldArray.getPlayer(data.playerId);
+      debugger;
       if (player != null) {
         var oneBlockEmpty = worldArray.getBlock(player.x + 1, player.y) == null;
         var stepEmpty = oneBlockEmpty && 
