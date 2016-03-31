@@ -178,6 +178,6 @@ module.exports = function(terrain) {
     setTimeout(function() {
       var fs = require('fs');
       fs.writeFile('server-world', JSON.stringify(worldArray), 'utf8');
-    }, 20000);
+    }, 60000);
   }
 };

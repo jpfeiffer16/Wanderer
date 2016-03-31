@@ -101,6 +101,11 @@ module.exports = function(terrain) {
     screenOffsetX++;
     worldArray.refreshScreen = true;
   });
+  screen.key('o', function() {
+    if (self.playerControls != undefined) {
+      self.playerControls.getWorld();
+    }
+  });
   self.render = function() {
     var playerCoords = self.utilities.getPlayerCoords();
     // if (self.utilities.worldNeedsUpdate) {

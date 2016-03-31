@@ -92,6 +92,9 @@ module.exports = function(worldArray, server) {
     reRender: function() {
       worldArray.refreshScreen = true;
     },
+    getWorld: function() {
+      sendEvent('request world');
+    }
     // getPlayer: function() {
     //   sendEvent('getPlayer');
     // }
