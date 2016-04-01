@@ -9,27 +9,17 @@ module.exports = function(worldArray, server) {
   socket.on('connect', function() {
     console.log('Connected');
     socket.on('send world', function(data) {
-      // logger.log('Player before: ' + JSON.stringify(player));
       worldArray.restoreFromJson(JSON.stringify(data.world));
       currentPlayerId = data.playerId;
       player = worldArray.getPlayer(data.playerId);
-      //self.utilities.worldNeedsUpdate = true;
-      logger.log('Player after: ' + JSON.stringify(player));
       logger.log('Got Player: ' + data.playerId);
-      // var uuid = require('node-uuid');
-      // var fs = require('fs');
-      // fs.writeFile('./world' + uuid.v4() + '.json', JSON.stringify(data.world), 'utf8');
     });
     socket.on('blocks changed', function(blocks) {
-      logger.log('Blocks changed: ' + blocks.length);
       for (var i = 0; i < blocks.length; i++) {
         var thisBlock = blocks[i];
         worldArray.updateBlockById(thisBlock.id, thisBlock);
-        logger.log('block:  ' + JSON.stringify(blocks[i]));
-        logger.log('currentPlayerId: ' + currentPlayerId + ', player: ' + JSON.stringify(player));
       }
       player = worldArray.getPlayer(currentPlayerId);
-      // self.utilities.worldNeedsUpdate = true;
     });
     socket.on('delete blocks', function(blocks) {
       for (var i = 0; i < blocks.length; i++) {
@@ -52,7 +42,6 @@ module.exports = function(worldArray, server) {
   
   self.utilities = {
     getPlayerCoords: function() {
-      // logger.log('Returning player: ' + JSON.stringify(player));
       return {
         x: player == null ? 0 : player.x,
         y: player == null ? 0 : player.y
@@ -60,8 +49,7 @@ module.exports = function(worldArray, server) {
     },
     getWorld: function() {
       return worldArray;
-    },
-    worldNeedsUpdate: false
+    }
   }
   
   self.playerControls = {
@@ -72,10 +60,16 @@ module.exports = function(worldArray, server) {
       sendEvent('moveLeft');
     },
     digRight: function(topBlock, bottomBlock) {
-      sendEvent('digRight');
+      sendEvent('digRight', {
+        topBlock: topBlock,
+        bottomBlock: bottomBlock
+      });
     },
     digLeft: function(topBlock, bottomBlock) {
-      sendEvent('digLeft');
+      sendEvent('digLeft', {
+        topBlock: topBlock,
+        bottomBlock: bottomBlock
+      });
     },
     digDown: function() {
       sendEvent('digDown');
@@ -100,9 +94,14 @@ module.exports = function(worldArray, server) {
     // }
   }
   
-  function sendEvent(eventName) {
-    socket.emit(eventName, {
-      playerId:currentPlayerId 
-    });
+  function sendEvent(eventName, extraInfo) {
+    var eventData = {};
+    eventData.playerId = currentPlayerId;
+    if (extraInfo  != undefined) {
+      for (var key in extraInfo) {
+        eventData[key] = extraInfo[key];
+      }
+    }
+    socket.emit(eventName, eventData);
   }
 };

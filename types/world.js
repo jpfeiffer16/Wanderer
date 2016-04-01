@@ -41,7 +41,6 @@ module.exports = (function() {
       return null;
     },
     updateBlockById: function(id, newBlock) {
-      //var begin = Date.now();
       for (var i = 0; i < this.length; i++) {
         var item = this[i];
         if (item.id == id) {
@@ -52,12 +51,8 @@ module.exports = (function() {
           //Keep the original id to avoid inadvertant data collision
           replaceWith.id = id;
           this[i] = replaceWith;
-          logger.log('Block changed: ' + JSON.stringify(item));
         }
       }
-      //var elapsed = Date.now() - begin;
-      //logger.log('Block update took ' + elapsed + 'ms');
-      //logger.log('World size: ' + this.length);
     },
     getPlayer: function(playerId) {
       var self = this;
@@ -70,7 +65,7 @@ module.exports = (function() {
         if (item.type == 0) {
           if (returnFirst)
             return item;
-          if (item.id = playerId)
+          if (item.id == playerId)
             return item;
         }
       }
@@ -80,9 +75,9 @@ module.exports = (function() {
       var newPlayer = Blocks.getBlock(blockTypes.PLAYER).properties;
       newPlayer.x = x;
       newPlayer.y = y;
+      newPlayer.changed = true;
       newPlayer.id = uuid.v4();
       this.push(newPlayer);
-      //this.blocksToAdd.push(JSON.parse(JSON.stringify(newPlayer)));
       this.blocksToAdd.push(newPlayer);
       return newPlayer;
     },
@@ -97,7 +92,6 @@ module.exports = (function() {
     },
     //Allows to add a pre-fabed block. Useful for multiplayer
     addBlock: function(block) {
-      logger.log('Adding block: ' + JSON.stringify(block));
       if (block != null && block.id != undefined) {
         for (var i = 0; i < this.length; i++) {
           if (this[i].id == block.id) return;
@@ -148,7 +142,9 @@ module.exports = (function() {
     },
     refreshScreen: false,
     blocksToDelete: [],
-    blocksToAdd: []
+    blocksToAdd: [],
+    width: 0,
+    height: 0
   }
   return (World);
 }).call({});

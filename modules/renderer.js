@@ -18,9 +18,6 @@ module.exports = function(terrain) {
   var player = worldArray.getPlayer();
   var screenOffsetX = 0;
   var screenOffsetY = 0;
-  // this.resetWorld = function(newWorld) {
-  //   worldArray = newWorld();
-  // };
   program.clear();
   program.alternateBuffer();
   screen.key(['escape', 'C-c'], function(ch, key) {
@@ -108,45 +105,31 @@ module.exports = function(terrain) {
   });
   self.render = function() {
     var playerCoords = self.utilities.getPlayerCoords();
-    // if (self.utilities.worldNeedsUpdate) {
-    //   worldArray = self.utilities.getWorld();
-    //   self.utilities.worldNeedsUpdate = false;
-    // }
-    // logger.log(JSON.stringify(playerCoords));
-    // logger.log('SceenOffsetX: ' + screenOffsetX + ' , ScreenOffsetY: ' + screenOffsetY + ' , ScreenWidth: ' +
-    //   screen.width + ' , ScreenHeight: ' + screen.height + ' , PlayerX: ' + player.x + ' , PlayerY: ' + player.y);
     if (playerCoords.x > screenOffsetX + screen.width - 30) {
       if (self.playerControls != undefined) {
         self.playerControls.reRender();
-        //logger.log('Changing screen offset. Player x: ' + playerCoords.x + ', Player y: ' + playerCoords.y);
       }
     }
     if (playerCoords.x < screenOffsetX + 30) {
       if (self.playerControls != undefined) {
         self.playerControls.reRender();
-        //logger.log('Changing screen offset. Player x: ' + playerCoords.x + ', Player y: ' + playerCoords.y);
       }
     }
     if (playerCoords.y > screenOffsetY + screen.height - 5) {
       if (self.playerControls != undefined) {
         self.playerControls.reRender();
-        //logger.log('Changing screen offset. Player x: ' + playerCoords.x + ', Player y: ' + playerCoords.y);
       }
     }
     if (playerCoords.y < screenOffsetY) {
       if (self.playerControls != undefined) {
         self.playerControls.reRender();
-        //logger.log('Changing screen offset. Player x: ' + playerCoords.x + ', Player y: ' + playerCoords.y);
       }
     }
     if (worldArray.refreshScreen) {
-      // logger.log('Refreshing screen');
       program.clear();
       screenOffsetX = playerCoords.x - 40;
       screenOffsetY = playerCoords.y - 20;
     }
-    //NOTE: Testing var
-    // var blocksBeingRendered = 0;
     for (var i = 0; i < worldArray.length; i++) {
       var item = worldArray[i];
       if (item.x > screenOffsetX && item.x < screenOffsetX + screen.width &&
@@ -154,13 +137,11 @@ module.exports = function(terrain) {
         if (item.changed || item.changed == undefined || worldArray.refreshScreen || 
           item.x != item._x || item.y != item._y) {
           renderBlock(item);
-          // blocksBeingRendered++;
         }
       }
       item._x = item.x;
       item._y = item.y;
     }
-    // logger.log('Blocks being rendered: ' + blocksBeingRendered);
     if (worldArray.blocksToDelete.length > 0) {
       for (var i = 0; i < worldArray.blocksToDelete.length; i++) {
         var block = worldArray.blocksToDelete[i];

@@ -10,8 +10,13 @@
   "license": "ISC",
   "dependencies": {
     "blessed": "^0.1.81",
+    "nexe": "0.4.2",
     "node-uuid": "^1.4.7",
     "socket.io": "^1.4.5",
     "socket.io-client": "^1.4.5"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "gulp": "^3.9.1"
   }
 }

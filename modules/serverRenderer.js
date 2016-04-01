@@ -26,8 +26,6 @@ module.exports = function(terrain) {
     });
     //Client Events
     socket.on('moveRight', function(data) {
-      //logger.log('MoveRight: ' + JSON.stringify(data));
-      logger.log('MoveRight: ' + data.playerId);
       var player = worldArray.getPlayer(data.playerId);
       debugger;
       if (player != null) {
@@ -67,6 +65,12 @@ module.exports = function(terrain) {
     socket.on('digRight', function(data) {
       var player = worldArray.getPlayer(data.playerId),
           bottomBlock = true, topBlock = true;
+      if (data.topBlock != undefined) {
+        topBlock = data.topBlock;
+      }
+      if (data.bottomBlock != undefined) {
+        bottomBlock = data.bottomBlock;
+      }
       if (player != null) {
         if (bottomBlock) {
           worldArray.deleteBlock(player.x + 1, player.y + 1);
@@ -87,6 +91,12 @@ module.exports = function(terrain) {
     socket.on('digLeft', function(data) {
       var player = worldArray.getPlayer(data.playerId),
           bottomBlock = true, topBlock = true;
+      if (data.topBlock != undefined) {
+        topBlock = data.topBlock;
+      }
+      if (data.bottomBlock != undefined) {
+        bottomBlock = data.bottomBlock;
+      }
       if (player != null) {
         if (bottomBlock) {
           worldArray.deleteBlock(player.x - 1, player.y + 1);
@@ -175,9 +185,5 @@ module.exports = function(terrain) {
   
   self.autoRender = function () {
     setInterval(self.render, 50);
-    setTimeout(function() {
-      var fs = require('fs');
-      fs.writeFile('server-world', JSON.stringify(worldArray), 'utf8');
-    }, 60000);
   }
 };

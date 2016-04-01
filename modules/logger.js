@@ -3,17 +3,16 @@ var fs = require('fs'),
 
 module.exports = (function() {
   function Logger() {
-    var self = this;
     this.identifier = uuid.v4();
     this.log = function(value, callback) {
       var valueToAppend = '================ \n' + value + '\n'
-      fs.appendFile('./log' + self.identifier +'.txt', valueToAppend, function(err) {
+      fs.appendFile('./log.txt', valueToAppend, function(err) {
         if (err) throw err;
         if (typeof callback == 'function') callback();
       });
     };
     var now = new Date();
-    fs.appendFile('./log' + self.identifier +'.txt', '\n# Run: ' + now.toLocaleDateString() + ", " + now.toLocaleTimeString() + '\n', function(err) {
+    fs.appendFile('./log.txt', '\n# Run: ' + now.toLocaleDateString() + ", " + now.toLocaleTimeString() + '\n', function(err) {
       if (err) throw err;
     });
   }

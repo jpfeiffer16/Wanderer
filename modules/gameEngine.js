@@ -7,7 +7,13 @@ module.exports = function(worldArray) {
   var self = this;
   var player = worldArray.getPlayer();
   self.loop = function() {
-    //TODO: Check the forcast for huge-ass drops of rain and other assorted horrible weather.
+    //Check the forcast for huge-ass drops of rain and other assorted horrible weather.
+    if (Math.random() < .1) {
+      var rainDropX = Math.round(Math.random() * 100);
+      //Use a gravity-enabled block of dirt for now. But need to be changed once we start adding more blocks.
+      var rainDrop = worldArray.createBlock(blockTypes.DIRT, rainDropX, 0);
+      rainDrop.gravity = true;
+    }
     for (var i = 0; i < worldArray.length; i ++) {
       var item = worldArray[i];
       //Gravity
@@ -117,8 +123,7 @@ module.exports = function(worldArray) {
     },
     getPlayer: function() {
       //Re-add our reference to the player
-      player = worldArray.getPlayer();
-      //logger.log('Updating user in game engine');      
+      player = worldArray.getPlayer();  
     }
   };
   
