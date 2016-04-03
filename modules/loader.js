@@ -8,8 +8,17 @@ var Loader = function() {
   };
   this.saveFile = function(path, data, callback) {
     fs.writeFile(path, data, 'utf8', function(err, data) {
-       if (err) throw err;
-       callback(data);
+      if (err) throw err;
+      callback(data);
+    });
+  };
+  this.getListOffWorlds = function(path, callback) {
+    fs.readdir(path, function(err, files) {
+      if (err) throw err;
+      var finalList = [];
+      for (var i = 0; i < files.length; i++) 
+        if (~files[i].indexOf('.wld')) finalList.push(files[i]); 
+      if (typeof callback == 'function') callback(finalList);
     });
   };
 };
