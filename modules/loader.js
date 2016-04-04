@@ -13,11 +13,15 @@ var Loader = function() {
     });
   };
   this.getListOffWorlds = function(path, callback) {
+    console.log('Before readdir');
     fs.readdir(path, function(err, files) {
       if (err) throw err;
       var finalList = [];
+      console.log('Before loop');
       for (var i = 0; i < files.length; i++) 
-        if (~files[i].indexOf('.wld')) finalList.push(files[i]); 
+        if (files[i].indexOf('.wld') != -1) finalList.push(files[i]); 
+      console.log('After loop');
+      console.log(finalList);
       if (typeof callback == 'function') callback(finalList);
     });
   };

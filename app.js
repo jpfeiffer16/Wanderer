@@ -2,15 +2,29 @@ var TerrainGen = require('./modules/terrainGen')(),
     Renderer = require('./modules/renderer'),
     Reactor = require('./modules/reactor'),
     GameEngine = require('./modules/gameEngine'),
-    Loader = require('./modules/loader');
+    Loader = require('./modules/loader'),
+    ServerManager = require('./modules/serverManager.js'),
+    World = require('types/world.js');
 if (process.argv[2] == 's') {
+  
   var ServerRenderer = require('./modules/serverRenderer');
-  var world = TerrainGen.genTerrain();
-  var renderer = new ServerRenderer(world);
-  var gameEngine = new GameEngine(world, false);
-  gameEngine.start();
-  renderer.autoRender();
-  console.log('Server running');
+  ServerManager(function(newWorld, selection) {
+    //var world = null;
+    if (newWorld) 
+      startGame(TerrainGen.genTerrain());
+    else {
+       
+    }
+      
+
+    function startGame(world) {
+      var renderer = new ServerRenderer(world);
+      var gameEngine = new GameEngine(world, false);
+      gameEngine.start();
+      renderer.autoRender();
+      console.log('Server running');
+    };
+  });
 } else if (process.argv[2] == 'm') {
   console.log(process.argv[3]);
   var server = process.argv[3] != undefined ? process.argv[3] : 'http://localhost:3030';
