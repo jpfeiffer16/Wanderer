@@ -9,14 +9,12 @@ module.exports = function(callback) {
     return process.exit(0);
   });
   Loader.getListOffWorlds('./', function(list) {
-    console.log('After get worlds');
-    var simpleList = [];   
+    var simpleList = ['New World'];   
     for (var i = 0; i < list.length; i++) {
       var thisItem = list[i];
       var lastSlash = thisItem.lastIndexOf('/');
       simpleList.push(thisItem.substring(lastSlash, thisItem.length));
     }
-    console.log(simpleList);
     var list = blessed.list({
       top: 'center',
       left: 'center',
@@ -34,9 +32,9 @@ module.exports = function(callback) {
       items: simpleList 
     });
     screen.append(list);
-    list.enableKeys();
     list.on('select', function(element, selection) {
-      var newWorld = selection == 'New';
+      var newWorld = simpleList[selection] == 'New World';
+      screen.destroy();
       if (typeof callback == 'function') callback(newWorld, simpleList[selection]); 
     });
     list.focus();
