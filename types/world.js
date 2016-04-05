@@ -140,6 +140,18 @@ module.exports = (function() {
         self.refreshScreen = true;
       });
     },
+    restoreFromFile: function (path) {
+      var self = this;
+      Loader.loadFile(path, function(json) {
+        var newWorld = JSON.parse(json);
+        self.length = 0;
+        for (var i = 0; i < newWorld.length; i++) {
+          self.push(newWorld[i]);
+        }
+        self.refreshScreen = true;
+        return;
+      });
+    },
     refreshScreen: false,
     blocksToDelete: [],
     blocksToAdd: [],

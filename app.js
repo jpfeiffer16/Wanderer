@@ -13,12 +13,15 @@ if (process.argv[2] == 's') {
     if (newWorld) 
       startGame(TerrainGen.genTerrain());
     else {
-      Loader.loadFile('./' + selection, function(data) {
-        startGame(new World().restoreFromJson(data));
-      }); 
+      //Loader.loadFile('./' + selection, function(data) {
+      //  startGame(new World().restoreFromJson(data));
+      //});
+      var selectedWorld = new World();
+      selectedWorld.restoreFromFile('./' + selection);
+      setTimeout(function() {
+        startGame(selectedWorld);
+      }, 800);
     }
-      
-
     function startGame(world) {
       var renderer = new ServerRenderer(world);
       var gameEngine = new GameEngine(world, false);
