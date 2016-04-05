@@ -3,6 +3,7 @@ node_modules/**
 *.swo
 *.swp
 .*
+*.wld
 world*.json
 log.txt
 bin/
