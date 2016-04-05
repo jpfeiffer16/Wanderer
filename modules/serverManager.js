@@ -35,8 +35,9 @@ module.exports = function(callback) {
     });
     screen.append(list);
     list.enableKeys();
-    list.on('select', function(selection) {
-      if (typeof callback == 'function') callback(selection); 
+    list.on('select', function(element, selection) {
+      var newWorld = selection == 'New';
+      if (typeof callback == 'function') callback(newWorld, simpleList[selection]); 
     });
     list.focus();
     screen.render();

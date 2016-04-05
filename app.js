@@ -4,7 +4,7 @@ var TerrainGen = require('./modules/terrainGen')(),
     GameEngine = require('./modules/gameEngine'),
     Loader = require('./modules/loader'),
     ServerManager = require('./modules/serverManager.js'),
-    World = require('types/world.js');
+    World = require('./types/world.js');
 if (process.argv[2] == 's') {
   
   var ServerRenderer = require('./modules/serverRenderer');
@@ -13,7 +13,9 @@ if (process.argv[2] == 's') {
     if (newWorld) 
       startGame(TerrainGen.genTerrain());
     else {
-       
+      Loader.loadFile('./' + selection, function(data) {
+        startGame(new World().restoreFromJson(data));
+      }); 
     }
       
 
