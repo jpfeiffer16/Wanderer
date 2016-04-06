@@ -1,11 +1,13 @@
 var Blocks = require('../types/blocks'),
     blockTypes = Blocks.blockTypes,
     io = require('socket.io')(3030),
-    logger = require('./logger');
+    logger = require('./logger'),
+    PlayerControls = require('./playerControls');
 
 module.exports = function(terrain) {
   var self = this;
   var worldArray = terrain;
+  var playerControls = new PlayerControls(worldArray);
   
   //Event listeners:
   io.on('connection', function(socket) {
@@ -27,39 +29,40 @@ module.exports = function(terrain) {
     //Client Events
     socket.on('moveRight', function(data) {
       var player = worldArray.getPlayer(data.playerId);
-      debugger;
       if (player != null) {
-        var oneBlockEmpty = worldArray.getBlock(player.x + 1, player.y) == null;
-        var stepEmpty = oneBlockEmpty && 
-          (worldArray.getBlock(player.x + 1, player.y - 1) == null);
-        var twoBlocksEmpty = oneBlockEmpty && 
-          (worldArray.getBlock(player.x + 1, player.y + 1) == null);
-        if (twoBlocksEmpty) {
-          player.x++;
-          player.changed = true;
-        } else if (stepEmpty) {
-          player.x++;
-          player.y--;
-          player.changed = true;
-        }
+        playerControls.moveRight(player.id);
+      //   var oneBlockEmpty = worldArray.getBlock(player.x + 1, player.y) == null;
+      //   var stepEmpty = oneBlockEmpty && 
+      //     (worldArray.getBlock(player.x + 1, player.y - 1) == null);
+      //   var twoBlocksEmpty = oneBlockEmpty && 
+      //     (worldArray.getBlock(player.x + 1, player.y + 1) == null);
+      //   if (twoBlocksEmpty) {
+      //     player.x++;
+      //     player.changed = true;
+      //   } else if (stepEmpty) {
+      //     player.x++;
+      //     player.y--;
+      //     player.changed = true;
+      //   }
       }
     });
     socket.on('moveLeft', function(data) {
       var player = worldArray.getPlayer(data.playerId);
       if (player != null) {
-        var oneBlockEmpty = worldArray.getBlock(player.x - 1, player.y) == null;
-        var stepEmpty = oneBlockEmpty &&
-          (worldArray.getBlock(player.x - 1, player.y - 1) == null);
-        var twoBlocksEmpty = oneBlockEmpty && 
-          (worldArray.getBlock(player.x - 1, player.y + 1) == null);
-        if (twoBlocksEmpty) {
-          player.x--;
-          player.changed = true;
-        } else if (stepEmpty) {
-          player.x--;
-          player.y--;
-          player.changed = true;
-        }
+        playerControls.moveLeft(player.id);
+      //   var oneBlockEmpty = worldArray.getBlock(player.x - 1, player.y) == null;
+      //   var stepEmpty = oneBlockEmpty &&
+      //     (worldArray.getBlock(player.x - 1, player.y - 1) == null);
+      //   var twoBlocksEmpty = oneBlockEmpty && 
+      //     (worldArray.getBlock(player.x - 1, player.y + 1) == null);
+      //   if (twoBlocksEmpty) {
+      //     player.x--;
+      //     player.changed = true;
+      //   } else if (stepEmpty) {
+      //     player.x--;
+      //     player.y--;
+      //     player.changed = true;
+      //   }
       }
     });
     socket.on('digRight', function(data) {
@@ -72,20 +75,21 @@ module.exports = function(terrain) {
         bottomBlock = data.bottomBlock;
       }
       if (player != null) {
-        if (bottomBlock) {
-          worldArray.deleteBlock(player.x + 1, player.y + 1);
-          worldArray.blocksToDelete.push({
-            x: player.x + 1, 
-            y: player.y + 1
-          });
-        }
-        if (topBlock) {
-          worldArray.deleteBlock(player.x + 1, player.y);
-          worldArray.blocksToDelete.push({
-            x: player.x + 1, 
-            y: player.y
-          });
-        }
+        playerControls.digRight(player.id, topBlock, bottomBlock);
+      //   if (bottomBlock) {
+      //     worldArray.deleteBlock(player.x + 1, player.y + 1);
+      //     worldArray.blocksToDelete.push({
+      //       x: player.x + 1, 
+      //       y: player.y + 1
+      //     });
+      //   }
+      //   if (topBlock) {
+      //     worldArray.deleteBlock(player.x + 1, player.y);
+      //     worldArray.blocksToDelete.push({
+      //       x: player.x + 1, 
+      //       y: player.y
+      //     });
+      //   }
       }
     });
     socket.on('digLeft', function(data) {
@@ -98,58 +102,75 @@ module.exports = function(terrain) {
         bottomBlock = data.bottomBlock;
       }
       if (player != null) {
-        if (bottomBlock) {
-          worldArray.deleteBlock(player.x - 1, player.y + 1);
-          worldArray.blocksToDelete.push({
-            x: player.x - 1, 
-            y: player.y + 1
-          });
-        }
-        if (topBlock) {
-          worldArray.deleteBlock(player.x - 1, player.y);
-          worldArray.blocksToDelete.push({
-            x: player.x - 1, 
-            y: player.y
-          });
-        }
+        playerControls.digLeft(player.id, topBlock, bottomBlock);
+      //   if (bottomBlock) {
+      //     worldArray.deleteBlock(player.x - 1, player.y + 1);
+      //     worldArray.blocksToDelete.push({
+      //       x: player.x - 1, 
+      //       y: player.y + 1
+      //     });
+      //   }
+      //   if (topBlock) {
+      //     worldArray.deleteBlock(player.x - 1, player.y);
+      //     worldArray.blocksToDelete.push({
+      //       x: player.x - 1, 
+      //       y: player.y
+      //     });
+      //   }
       }
     });
     socket.on('digDown', function(data) {
       var player = worldArray.getPlayer(data.playerId);
       if (player != null) {
-        worldArray.deleteBlock(player.x, player.y + player.height);
-        worldArray.blocksToDelete.push({
-          x: player.x, 
-          y: player.y + player.height 
-        });
+        playerControls.digDown(player.id);
+      //   worldArray.deleteBlock(player.x, player.y + player.height);
+      //   worldArray.blocksToDelete.push({
+      //     x: player.x, 
+      //     y: player.y + player.height 
+      //   });
       }
     });
     socket.on('placeDown', function(data) {
       var player = worldArray.getPlayer(data.playerId);
       if (player != null) {
-        var topBlockEmpty = worldArray.getBlock(player.x, player.y - 1) == null;
-        if (topBlockEmpty) {
-          player.y--;
-          worldArray.createBlock(blockTypes.DIRT, player.x, player.y + player.height);
-        }
+        playerControls.placeDown(player.id);
+        // var topBlockEmpty = worldArray.getBlock(player.x, player.y - 1) == null;
+        // if (topBlockEmpty) {
+        //   player.y--;
+        //   worldArray.createBlock(blockTypes.DIRT, player.x, player.y + player.height);
+        // }
       }
     });
     socket.on('placeUp', function(data) {
       var player = worldArray.getPlayer(data.playerId);
       if (player != null) {
-        var topBlockEmpty = worldArray.getBlock(player.x, player.y - 1) == null;
-        if (topBlockEmpty) {
-          worldArray.createBlock(blockTypes.DIRT, player.x, player.y - 1);
-        }
+        playerControls.placeUp(player.id);
+        // var topBlockEmpty = worldArray.getBlock(player.x, player.y - 1) == null;
+        // if (topBlockEmpty) {
+        //   worldArray.createBlock(blockTypes.DIRT, player.x, player.y - 1);
+        // }
       }
     });
     socket.on('jump', function(data) {
       var player = worldArray.getPlayer(data.playerId);
       if (player != null) {
-        var topBlockEmpty = worldArray.getBlock(player.x, player.y - 1) == null;
-        if (topBlockEmpty) { 
-          player.y--;
-        }
+        playerControls.jump(player.id);
+        // var topBlockEmpty = worldArray.getBlock(player.x, player.y - 1) == null;
+        // if (topBlockEmpty) { 
+        //   player.y--;
+        // }
+      }
+    });
+    socket.on('shootLeft', function(data) {
+      var player = worldArray.getPlayer(data.playerId);
+      if (player != null) {
+          playerControls.shootLeft(player.id);
+      }
+    });
+    socket.on('shootRight', function(data) {
+      var player = worldArray.getPlayer(data.playerId);
+      if (player != null) {
+        playerControls.shootRight(player.id);
       }
     });
   });

@@ -18,6 +18,14 @@ var blocks = {
       width: 1,
       gravity: false
     }
+  },
+  3: {
+    rep: ['-'],
+    properties: {
+      height: 1,
+      width: 1,
+      gravity: false
+    }
   }
 };
 
@@ -26,6 +34,7 @@ var BlockLoader = function() {
   self.blockTypes = {
     PLAYER: 0,
     DIRT: 1,
+    BULLET: 3
   };
   self.getBlock = function(blockId) {
     //TODO: Do some type checking here

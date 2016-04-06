@@ -83,6 +83,12 @@ module.exports = function(worldArray, server) {
     jump: function() {
       sendEvent('jump');
     },
+    shootLeft: function () {
+      sendEvent('shootLeft');
+    },
+    shootRight: function () {
+      sendEvent('shootRight');
+    },
     reRender: function() {
       worldArray.refreshScreen = true;
     },

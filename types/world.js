@@ -31,6 +31,18 @@ module.exports = (function() {
       }
       return null;
     },
+    //Gets all blocks at a certain location
+    getBlocks: function(x, y) {
+      var self = this;
+      var list = [];
+      for (var i = 0; i < self.length; i++) {          
+        var item = self[i];     
+        if (item.x == x && item.y == y) {              
+          list.push(item);
+        }
+      }
+      return list;
+    },
     getBlockById: function(id) {
       for (var i = 0; i < this.length; i++) {
         var item = this[i];
@@ -100,6 +112,7 @@ module.exports = (function() {
       }
     },
     deleteBlock: function(x, y) {
+      //TODO: need to add deleted block to blocksToDelete like adding blocks already does.
       var self = this;
       var index = null;
       for (var i = 0; i < this.length; i++) {          
@@ -111,9 +124,29 @@ module.exports = (function() {
       }
       if (index != null) {
         var toReturn = JSON.parse(JSON.stringify(self[index]));
+        self.blocksToDelete.push(toReturn);
         self.splice(index, 1);
       }
       return toReturn;
+    },
+    deleteBlockById: function(blockId) {
+      if (blockId != undefined) {
+        var self = this;
+        var index = null;
+        for (var i = 0; i < this.length; i++) {          
+          var item = self[i];                            
+          if (item.id == blockId) {              
+            index = i;
+            break;
+          }
+        }
+        if (index != null) {
+          var toReturn = JSON.parse(JSON.stringify(self[index]));
+          self.blocksToDelete.push(toReturn);
+          self.splice(index, 1);
+        }
+        return toReturn;
+      }
     },
     saveJson: function() {
       Loader.saveFile('./world.json', JSON.stringify(this), function() {

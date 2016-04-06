@@ -1,10 +1,12 @@
 var Loader = require('./loader'),
     blockTypes = require('../types/blocks').blockTypes,
-    logger = require('./logger');
+    logger = require('./logger'),
+    PlayerControls = require('./playerControls');
 module.exports = function(worldArray) {
   // if (worldArray.getPlayer() == null)
   //   throw 'Error: No player found in specified world';
   var self = this;
+  var playerControls = new PlayerControls(worldArray);
   var player = worldArray.getPlayer();
   self.loop = function() {
     //Check the forcast for huge-ass drops of rain and other assorted horrible weather.
@@ -23,6 +25,19 @@ module.exports = function(worldArray) {
           item.y++;
         }
       }
+      if (item.type == blockTypes.BULLET) {
+        var blocksAtLocation = worldArray.getBlocks(item.x, item.y);
+        if (blocksAtLocation.length > 1) {
+          //Colliding
+          for (var i = 0; i < blocksAtLocation.length; i++) {
+            worldArray.deleteBlockById(blocksAtLocation[i].id);
+          }
+        } else {
+          //Not colliding, move on
+          item.x += item.vx;
+          item.y += item.vy;
+        }
+      }
     }
   };
   self.utilities = {
@@ -35,88 +50,34 @@ module.exports = function(worldArray) {
   },
   self.playerControls = {
     moveRight: function() {
-      var oneBlockEmpty = worldArray.getBlock(player.x + 1, player.y) == null;
-      var stepEmpty = oneBlockEmpty && 
-        (worldArray.getBlock(player.x + 1, player.y - 1) == null);
-      var twoBlocksEmpty = oneBlockEmpty && 
-        (worldArray.getBlock(player.x + 1, player.y + 1) == null);
-      if (twoBlocksEmpty) {
-        player.x++;  
-      } else if (stepEmpty) {
-        player.x++;
-        player.y--;
-      }
+      playerControls.moveRight(player.id);
     },
     moveLeft: function() {
-      var oneBlockEmpty = worldArray.getBlock(player.x - 1, player.y) == null;
-      var stepEmpty = oneBlockEmpty &&
-        (worldArray.getBlock(player.x - 1, player.y - 1) == null);
-      var twoBlocksEmpty = oneBlockEmpty && 
-        (worldArray.getBlock(player.x - 1, player.y + 1) == null);
-      if (twoBlocksEmpty) {
-        player.x--;
-      } else if (stepEmpty) {
-        player.x--;
-        player.y--;
-      }
+      playerControls.moveLeft(player.id);
     },
     digRight: function(topBlock, bottomBlock) {
-      if (bottomBlock) {
-        worldArray.deleteBlock(player.x + 1, player.y + 1);
-        worldArray.blocksToDelete.push({
-          x: player.x + 1, 
-          y: player.y + 1
-        });
-      }
-      if (topBlock) {
-        worldArray.deleteBlock(player.x + 1, player.y);
-        worldArray.blocksToDelete.push({
-          x: player.x + 1, 
-          y: player.y
-        });
-      }
+      playerControls.digRight(player.id, topBlock, bottomBlock);
     },
     digLeft: function(topBlock, bottomBlock) {
-      if (bottomBlock) {
-        worldArray.deleteBlock(player.x - 1, player.y + 1);
-        worldArray.blocksToDelete.push({
-          x: player.x - 1, 
-          y: player.y + 1
-        });
-      }
-      if (topBlock) {
-        worldArray.deleteBlock(player.x - 1, player.y);
-        worldArray.blocksToDelete.push({
-          x: player.x - 1, 
-          y: player.y
-        });
-      }
+      playerControls.digLeft(player.id, topBlock, bottomBlock);
     },
     digDown: function() {
-      worldArray.deleteBlock(player.x, player.y + player.height);
-      worldArray.blocksToDelete.push({
-        x: player.x, 
-        y: player.y + player.height 
-      });
+      playerControls.digDown(player.id);
     },
     placeDown: function() {
-      var topBlockEmpty = worldArray.getBlock(player.x, player.y - 1) == null;
-      if (topBlockEmpty) {
-        player.y--;
-        worldArray.createBlock(blockTypes.DIRT, player.x, player.y + player.height);
-      }
+      playerControls.placeDown(player.id);
     },
     placeUp: function() {
-      var topBlockEmpty = worldArray.getBlock(player.x, player.y - 1) == null;
-      if (topBlockEmpty) {
-        worldArray.createBlock(blockTypes.DIRT, player.x, player.y - 1);
-      }
+      playerControls.placeUp(player.id);
     },
     jump: function() {
-      var topBlockEmpty = worldArray.getBlock(player.x, player.y - 1) == null;
-      if (topBlockEmpty) { 
-        player.y--;
-      }
+      playerControls.jump(player.id);
+    },
+    shootLeft: function () {
+      playerControls.shootLeft(player.id);
+    },
+    shootRight: function () {
+      playerControls.shootRight(player.id);
     },
     reRender: function() {
       worldArray.refreshScreen = true;

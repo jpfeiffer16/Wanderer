@@ -78,6 +78,16 @@ module.exports = function(terrain) {
       self.playerControls.placeUp();
     }
   });
+  screen.key('u', function() {
+    if (self.playerControls != undefined) {
+      self.playerControls.shootLeft();
+    }
+  });
+  screen.key('i', function() {
+    if (self.playerControls != undefined) {
+      self.playerControls.shootRight();
+    }
+  });
   screen.key('m', function() {
     if (self.playerControls != undefined) {
       worldArray.saveJson();

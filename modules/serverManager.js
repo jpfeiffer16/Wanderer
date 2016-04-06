@@ -2,7 +2,7 @@ module.exports = function(callback) {
   var Loader = require('./loader'),
       blessed = require('blessed'),
       program = blessed.program(),
-      screen = blessed.screen();
+      screen = blessed.screen({});
   // program.clear();
   // program.alternateBuffer();
   screen.key(['q'], function() {
