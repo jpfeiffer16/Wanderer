@@ -18,9 +18,7 @@ if (process.argv[2] == 's') {
       //});
       var selectedWorld = new World();
       selectedWorld.restoreFromFile('./' + selection);
-      setTimeout(function() {
-        startGame(selectedWorld);
-      }, 800);
+      startGame(selectedWorld);
     }
     function startGame(world) {
       var renderer = new ServerRenderer(world);

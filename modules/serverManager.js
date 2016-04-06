@@ -30,6 +30,12 @@ module.exports = function(callback) {
           fg: '#ffffff'
         }
       },
+      padding: {
+        left: 2,
+        top: 2,
+        right: 2,
+        bottom: 2
+      },
       keys: true,
       vi: true,
       items: simpleList 
@@ -130,8 +136,9 @@ module.exports = function(callback) {
         });
 
         form.on('submit', function(data) {
-          form.setContent('Submitted.');
-          screen.render();
+          //form.setContent('Submitted.');
+          //screen.render();
+          if (typeof callback == 'function') callback(true, null);
         });
 
         form.on('reset', function(data) {
