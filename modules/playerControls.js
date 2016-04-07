@@ -106,6 +106,10 @@ module.exports = function PlayerControls(worldArray) {
     bullet.vx = 1;
     bullet.vy = 0;
   }
+  this.dropBomb = function (playerId) {
+    var player = worldArray.getPlayer(playerId);
+    var bomb = worldArray.createBlock(blockTypes.BOMB, player.x, player.y + 1); 
+  };
   this.reRender = function(playerId) {
     worldArray.refreshScreen = true;
   };

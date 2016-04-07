@@ -89,6 +89,9 @@ module.exports = function(worldArray, server) {
     shootRight: function () {
       sendEvent('shootRight');
     },
+    dropBomb: function () {
+      sendEvent('dropBomb');
+    },
     reRender: function() {
       worldArray.refreshScreen = true;
     },

@@ -10,14 +10,19 @@ module.exports = function(worldArray) {
   var player = worldArray.getPlayer();
   self.loop = function() {
     //Check the forcast for huge-ass drops of rain and other assorted horrible weather.
-    if (Math.random() < .1) {
-      var rainDropX = Math.round(Math.random() * 100);
-      //Use a gravity-enabled block of dirt for now. But need to be changed once we start adding more blocks.
-      var rainDrop = worldArray.createBlock(blockTypes.DIRT, rainDropX, 0);
-      rainDrop.gravity = true;
-    }
+    //if (Math.random() < .1) {
+    //  var rainDropX = Math.round(Math.random() * 100);
+    //  //Use a gravity-enabled block of dirt for now. But need to be changed once we start adding more blocks.
+    //  var rainDrop = worldArray.createBlock(blockTypes.DIRT, rainDropX, 0);
+    //  rainDrop.gravity = true;
+    //}
     for (var i = 0; i < worldArray.length; i ++) {
       var item = worldArray[i];
+      if ((item.x < 0 || item.x > worldArray.width ||
+          item.y < 0 || item.y > worldArray.height)
+          && item.type == blockTypes.BULLET) {
+        worldArray.deleteBlockById(item.id);
+      }
       //Gravity
       if (item.gravity) {
         if (worldArray.getBlock(item.x, item.y + item.height) == null) {
@@ -36,6 +41,20 @@ module.exports = function(worldArray) {
           //Not colliding, move on
           item.x += item.vx;
           item.y += item.vy;
+        }
+      }
+      if (item.type == blockTypes.BOMB) {
+        var blocksAtLocation = worldArray.getBlocks(item.x, item.y + 1);
+        if (blocksAtLocation.length > 0) {
+          //Colliding
+          worldArray.deleteBlockById(item.id);
+          for (var i = 0; i < 10; i++) {
+            for (var j = 0; j < 10; j++) {
+              if (Math.random() < .5) {
+                worldArray.deleteBlock(item.x - 5 + i, item.y - 5 + j);
+              }
+            }
+          }
         }
       }
     }
@@ -78,6 +97,9 @@ module.exports = function(worldArray) {
     },
     shootRight: function () {
       playerControls.shootRight(player.id);
+    },
+    dropBomb: function () {
+      playerControls.dropBomb(player.id);
     },
     reRender: function() {
       worldArray.refreshScreen = true;
