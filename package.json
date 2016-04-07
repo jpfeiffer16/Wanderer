@@ -1,22 +1,24 @@
 {
   "name": "Wanderer",
   "version": "0.1.0",
-  "description": "A terminal-based open world game",
+  "description": "A terminal based 2D open world game. Where you can build stuff, shoot stuff, and blow stuff up.",
   "main": "app.js",
+  "bin": {
+    "wanderer": "app.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Joe Pfeiffer",
   "license": "ISC",
   "dependencies": {
     "blessed": "^0.1.81",
-    "nexe": "0.4.2",
     "node-uuid": "^1.4.7",
     "socket.io": "^1.4.5",
     "socket.io-client": "^1.4.5"
   },
   "devDependencies": {
     "browserify": "^13.0.0",
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "nexe": "0.4.2"
   }
 }

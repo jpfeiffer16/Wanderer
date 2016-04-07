@@ -48,10 +48,10 @@ module.exports = function(worldArray) {
         if (blocksAtLocation.length > 0) {
           //Colliding
           worldArray.deleteBlockById(item.id);
-          for (var i = 0; i < 10; i++) {
+          for (var k = 0; k < 10; k++) {
             for (var j = 0; j < 10; j++) {
               if (Math.random() < .5) {
-                worldArray.deleteBlock(item.x - 5 + i, item.y - 5 + j);
+                worldArray.deleteBlock(item.x - 5 + k, item.y - 5 + j);
               }
             }
           }

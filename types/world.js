@@ -112,7 +112,6 @@ module.exports = (function() {
       }
     },
     deleteBlock: function(x, y) {
-      //TODO: need to add deleted block to blocksToDelete like adding blocks already does.
       var self = this;
       var index = null;
       for (var i = 0; i < this.length; i++) {          

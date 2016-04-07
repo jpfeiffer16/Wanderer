@@ -46,7 +46,6 @@ var BlockLoader = function() {
     BOMB: 4
   };
   self.getBlock = function(blockId) {
-    //TODO: Do some type checking here
     if (typeof(blockId) == 'number') {
       var block = blocks[blockId];
       block.properties.type = blockId;

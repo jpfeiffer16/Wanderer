@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var TerrainGen = require('./modules/terrainGen')(),
     Renderer = require('./modules/renderer'),
     Reactor = require('./modules/reactor'),
@@ -6,28 +7,30 @@ var TerrainGen = require('./modules/terrainGen')(),
     ServerManager = require('./modules/serverManager.js'),
     World = require('./types/world.js');
 if (process.argv[2] == 's') {
-  
   var ServerRenderer = require('./modules/serverRenderer');
-  ServerManager(function(newWorld, selection) {
-    //var world = null;
-    if (newWorld) 
-      startGame(TerrainGen.genTerrain());
-    else {
-      //Loader.loadFile('./' + selection, function(data) {
-      //  startGame(new World().restoreFromJson(data));
-      //});
-      var selectedWorld = new World();
-      selectedWorld.restoreFromFile('./' + selection);
-      startGame(selectedWorld);
-    }
-    function startGame(world) {
-      var renderer = new ServerRenderer(world);
-      var gameEngine = new GameEngine(world, false);
-      gameEngine.start();
-      renderer.autoRender();
-      console.log('Server running');
-    };
-  });
+  //NOTE: Temporarily out of service to get a release out the door.
+  // ServerManager(function(newWorld, selection) {
+  //   //var world = null;
+  //   if (newWorld) 
+  //     startGame(TerrainGen.genTerrain());
+  //   else {
+  //     //Loader.loadFile('./' + selection, function(data) {
+  //     //  startGame(new World().restoreFromJson(data));
+  //     //});
+  //     var selectedWorld = new World();
+  //     selectedWorld.restoreFromFile('./' + selection);
+  //     startGame(selectedWorld);
+  //   }
+  // });
+  //NOTE: Using this for now till we can get the ServerManager stable
+  startGame(TerrainGen.genTerrain());                // <----------|
+  function startGame(world) {
+    var renderer = new ServerRenderer(world);
+    var gameEngine = new GameEngine(world, false);
+    gameEngine.start();
+    renderer.autoRender();
+    console.log('Server running');
+  };
 } else if (process.argv[2] == 'm') {
   console.log(process.argv[3]);
   var server = process.argv[3] != undefined ? process.argv[3] : 'http://localhost:3030';

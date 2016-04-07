@@ -33,44 +33,23 @@ module.exports = function PlayerControls(worldArray) {
     var player = worldArray.getPlayer(playerId);
     if (bottomBlock) {
       worldArray.deleteBlock(player.x + 1, player.y + 1);
-      // worldArray.blocksToDelete.push({
-      //   x: player.x + 1, 
-      //   y: player.y + 1
-      // });
     }
     if (topBlock) {
       worldArray.deleteBlock(player.x + 1, player.y);
-      // worldArray.blocksToDelete.push({
-      //   x: player.x + 1, 
-      //   y: player.y
-      // });
     }
   };
   this.digLeft = function(playerId, topBlock, bottomBlock) {
     var player = worldArray.getPlayer(playerId);
     if (bottomBlock) {
       worldArray.deleteBlock(player.x - 1, player.y + 1);
-      // worldArray.blocksToDelete.push({
-      //   x: player.x - 1, 
-      //   y: player.y + 1
-      // });
     }
     if (topBlock) {
       worldArray.deleteBlock(player.x - 1, player.y);
-      // worldArray.blocksToDelete.push({
-      //   x: player.x - 1, 
-      //   y: player.y
-      // });
     }
   },
   this.digDown = function(playerId) {
     var player = worldArray.getPlayer(playerId);
     worldArray.deleteBlock(player.x, player.y + player.height);
-    //TODO: this needs to be moved in the World type.
-    // worldArray.blocksToDelete.push({
-    //   x: player.x, 
-    //   y: player.y + player.height 
-    // });
   };
   this.placeDown = function(playerId) {
     var player = worldArray.getPlayer(playerId);
