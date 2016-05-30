@@ -1,7 +1,8 @@
 var Loader = require('./loader'),
     blockTypes = require('../types/blocks').blockTypes,
     logger = require('./logger'),
-    PlayerControls = require('./playerControls');
+    PlayerControls = require('./playerControls'),
+    StructureChecker = require('./structureChecker');
 module.exports = function(worldArray) {
   // if (worldArray.getPlayer() == null)
   //   throw 'Error: No player found in specified world';
@@ -112,5 +113,8 @@ module.exports = function(worldArray) {
   
   self.start = function() {
     setInterval(self.loop, 200);
+    setInterval(function() {
+      StructureChecker.checkForLooseBlocks(worldArray);
+    }, 800);
   };
 };

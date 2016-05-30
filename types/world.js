@@ -43,6 +43,19 @@ module.exports = (function() {
       }
       return list;
     },
+    //Gets all blocks in a rectangular region
+    getBlocksInRegion: function(x, y, width, height) {
+      var list = [];
+      this.forEach(function(block) {
+        if (block.x > x &&
+            block.x < x + width &&
+            block.y > y &&
+            block.y < y + height) {
+          list.push(block);
+        }
+      });
+      return list;
+    },
     getBlockById: function(id) {
       for (var i = 0; i < this.length; i++) {
         var item = this[i];
