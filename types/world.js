@@ -57,13 +57,8 @@ module.exports = (function() {
       return list;
     },
     getBlockById: function(id) {
-      for (var i = 0; i < this.length; i++) {
-        var item = this[i];
-        if (item.id == id) {
-          return item;
-        }
-      }
-      return null;
+      var block = this.idMatrix[id];
+      return block == undefined ? null : block;
     },
     updateBlockById: function(id, newBlock) {
       for (var i = 0; i < this.length; i++) {
@@ -112,6 +107,7 @@ module.exports = (function() {
       block.y = y;
       block.id = uuid.v4();
       this.push(block);
+      this.idMatrix[block.id] = block;
       this.blocksToAdd.push(JSON.parse(JSON.stringify(block)));
       return block;
     },
@@ -122,15 +118,18 @@ module.exports = (function() {
           if (this[i].id == block.id) return;
         }
         this.push(block);
+        this.idMatrix[block.id] = block;
       }
     },
     deleteBlock: function(x, y) {
       var self = this;
       var index = null;
+      var block = null;
       for (var i = 0; i < this.length; i++) {          
         var item = self[i];                            
         if (item.x == x && item.y == y) {              
           index = i;
+          block = item;
           break;
         }
       }
@@ -138,6 +137,8 @@ module.exports = (function() {
         var toReturn = JSON.parse(JSON.stringify(self[index]));
         self.blocksToDelete.push(toReturn);
         self.splice(index, 1);
+        if (self.idMatrix[block.id] != undefined)
+          delete self.idMatrix[block.id];
       }
       return toReturn;
     },
@@ -156,7 +157,9 @@ module.exports = (function() {
           var toReturn = JSON.parse(JSON.stringify(self[index]));
           self.blocksToDelete.push(toReturn);
           self.splice(index, 1);
-        }
+          if (self.idMatrix[blockId] != undefined)
+            delete self.idMatrix[blockId];
+          }
         return toReturn;
       }
     },
@@ -200,6 +203,7 @@ module.exports = (function() {
     refreshScreen: false,
     blocksToDelete: [],
     blocksToAdd: [],
+    idMatrix: {},
     width: 0,
     height: 0
   }
