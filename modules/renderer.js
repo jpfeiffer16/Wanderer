@@ -118,6 +118,21 @@ module.exports = function(terrain) {
       self.playerControls.getWorld();
     }
   });
+  screen.key('b', function() {
+    if (self.playerControls != undefined) {
+      self.playerControls.dropTes();
+    }
+  });
+  screen.key('j', function() {
+    if (self.playerControls != undefined) {
+      self.playerControls.moveTesLeft();
+    }
+  });
+  screen.key('k', function() {
+    if (self.playerControls != undefined) {
+      self.playerControls.moveTesRight();
+    }
+  });
   self.render = function() {
     var playerCoords = self.utilities.getPlayerCoords();
     if (playerCoords.x > screenOffsetX + screen.width - 30) {

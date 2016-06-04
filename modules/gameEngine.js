@@ -2,7 +2,8 @@ var Loader = require('./loader'),
     blockTypes = require('../types/blocks').blockTypes,
     logger = require('./logger'),
     PlayerControls = require('./playerControls'),
-    StructureChecker = require('./structureChecker');
+    StructureChecker = require('./structureChecker'),
+    TesChecker = require('./tesChecker');
 module.exports = function(worldArray) {
   // if (worldArray.getPlayer() == null)
   //   throw 'Error: No player found in specified world';
@@ -108,6 +109,15 @@ module.exports = function(worldArray) {
     getPlayer: function() {
       //Re-add our reference to the player
       player = worldArray.getPlayer();  
+    },
+    dropTes: function() {
+      playerControls.dropTes(player.id);
+    },
+    moveTesLeft: function() {
+      playerControls.moveTesLeft(player.id);
+    },
+    moveTesRight: function() {
+      playerControls.moveTesRight(player.id);
     }
   };
   
@@ -115,6 +125,9 @@ module.exports = function(worldArray) {
     setInterval(self.loop, 200);
     setInterval(function() {
       StructureChecker.checkForLooseBlocks(worldArray);
+    }, 800);
+    setInterval(function() {
+      TesChecker.check(worldArray);
     }, 800);
   };
 };

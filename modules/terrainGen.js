@@ -7,7 +7,6 @@ module.exports = function() {
   var genTerrain = function(addPlayer) {
     var worldArray = new World();
     for (var i = 0; i < width; i++) {
-      //var ranNum = Math.round(((Math.random() * 100) / 10), 0);
       for (var j = 0; j < height; j++) {
         worldArray.createBlock(blockTypes.DIRT, i, j + 40);
       }

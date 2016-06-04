@@ -107,6 +107,24 @@ module.exports = function(terrain) {
         playerControls.dropBomb(player.id);
       }
     });
+    socket.on('dropTes', function(data) {
+      var player = worldArray.getPlayer(data.playerId);
+      if (player != null) {
+        playerControls.dropTes(player.id);
+      }
+    });
+    socket.on('moveTesLeft', function(data) {
+      var player = worldArray.getPlayer(data.playerId);
+      if (player != null) {
+        playerControls.moveTesLeft(player.id);
+      }
+    });
+    socket.on('moveTesRight', function(data) {
+      var player = worldArray.getPlayer(data.playerId);
+      if (player != null) {
+        playerControls.moveTesRight(player.id);
+      }
+    });
   });
   
   self.render = function() {

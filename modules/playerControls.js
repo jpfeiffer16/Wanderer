@@ -92,6 +92,37 @@ module.exports = function PlayerControls(worldArray) {
   this.reRender = function(playerId) {
     worldArray.refreshScreen = true;
   };
+  this.dropTes = function(playerId) {
+    var player = worldArray.getPlayer(playerId);
+    var tesseract = worldArray.createBlock(blockTypes.TESSERACT, player.x, player.y + player.height - 1);
+    tesseract.playerId = playerId;
+  };
+  this.moveTesLeft = function(playerId) {
+    var player = worldArray.getPlayer(playerId);
+    if (process.tesList == undefined) return;
+    var tesList = process.tesList[playerId];
+    if (tesList == undefined) return;
+    tesList.forEach(function(block) {
+      var refBlock = worldArray.getBlockById(block.id);
+      if (refBlock != null) refBlock.x--;
+      if (block.type == blockTypes.PLAYER && block.id == player.id)
+        player.x--;
+      //if (block.type == blockTypes.PLAYER && block.id == player.id) console.log('Found player');
+    }); 
+  };
+  this.moveTesRight = function(playerId) {
+    var player = worldArray.getPlayer(playerId);
+    if (process.tesList == undefined) return;
+    var tesList = process.tesList[playerId];
+    if (tesList == undefined) return;
+    tesList.forEach(function(block) {
+      var refBlock = worldArray.getBlockById(block.id);
+      if (refBlock != null) refBlock.x++;
+      if (block.type == blockTypes.PLAYER && block.id == player.id)
+        player.x++;
+    }); 
+
+  };
   // this.getPlayer = function() {
   //   //Re-add our reference to the player
   //   player = worldArray.getPlayer();  

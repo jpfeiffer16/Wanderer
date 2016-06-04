@@ -1,4 +1,4 @@
-var Blocks = require('../types/blocks.js'),
+var Blocks = require('../types/blocks'),
     blockTypes = Blocks.blockTypes;
 var World = require('../types/world');
 function isGroundedBlock(world, x, y) {
@@ -8,13 +8,10 @@ function isGroundedBlock(world, x, y) {
     false : block.isGrounded;
 }
 function checkForLooseBlocks(worldArray) {
-  //console.log(worldArray.length);
   var world = new World();
   worldArray.forEach(function (block) {
     world.push(block); 
   });
-  //world = world.restoreFromJson(JSON.stringify(worldArray));
-  //console.log('worker running');
   var blocks = world; 
   if (blocks.length > 0) {
     //Clear isGrounded values here so we can reason about what has changed

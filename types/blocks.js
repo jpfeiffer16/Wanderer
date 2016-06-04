@@ -34,6 +34,14 @@ var blocks = {
       width: 1,
       gravity: true
     }
+  },
+  5: {
+    rep: ['*'],
+    properties: {
+      height: 1,
+      width: 1,
+      gravity: true
+    }
   }
 };
 
@@ -43,7 +51,8 @@ var BlockLoader = function() {
     PLAYER: 0,
     DIRT: 1,
     BULLET: 3,
-    BOMB: 4
+    BOMB: 4,
+    TESSERACT: 5
   };
   self.getBlock = function(blockId) {
     if (typeof(blockId) == 'number') {

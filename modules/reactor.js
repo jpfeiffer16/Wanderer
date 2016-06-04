@@ -97,6 +97,15 @@ module.exports = function(worldArray, server) {
     },
     getWorld: function() {
       sendEvent('request world');
+    },
+    dropTes: function() {
+      sendEvent('dropTes');
+    },
+    moveTesLeft: function() {
+      sendEvent('moveTesLeft');
+    },
+    moveTesRight: function() {
+      sendEvent('moveTesRight');
     }
     // getPlayer: function() {
     //   sendEvent('getPlayer');
