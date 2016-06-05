@@ -105,19 +105,6 @@ module.exports = function(terrain) {
       self.playerControls.getPlayer();
     }
   });
-  screen.key('p', function() {
-    screenOffsetY++;
-    worldArray.refreshScreen = true;
-  });
-  screen.key('l', function() {
-    screenOffsetX++;
-    worldArray.refreshScreen = true;
-  });
-  screen.key('o', function() {
-    if (self.playerControls != undefined) {
-      self.playerControls.getWorld();
-    }
-  });
   screen.key('b', function() {
     if (self.playerControls != undefined) {
       self.playerControls.dropTes();
@@ -131,6 +118,12 @@ module.exports = function(terrain) {
   screen.key('k', function() {
     if (self.playerControls != undefined) {
       self.playerControls.moveTesRight();
+    }
+  });
+  screen.key('l', function() {
+
+    if (self.playerControls != undefined) {
+      self.playerControls.zoomToGround();
     }
   });
   self.render = function() {

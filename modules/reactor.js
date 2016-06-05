@@ -106,6 +106,9 @@ module.exports = function(worldArray, server) {
     },
     moveTesRight: function() {
       sendEvent('moveTesRight');
+    },
+    zoomToGround: function() {
+      sendEvent('zoomToGround');
     }
     // getPlayer: function() {
     //   sendEvent('getPlayer');

@@ -43,7 +43,10 @@ priority. They are subject to possibly durastic change in the near future.
 * `shoot right` - i
 * `drop bomb` - h
 * `re-render screen` - y
-
+* `drop tesseract` - b
+* `move tesseract left` - j
+* `move tesseract right` - k
+* `teleport to ground` - k
 
 
 ##Multiplayer

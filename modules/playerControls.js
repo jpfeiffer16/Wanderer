@@ -107,7 +107,6 @@ module.exports = function PlayerControls(worldArray) {
       if (refBlock != null) refBlock.x--;
       if (block.type == blockTypes.PLAYER && block.id == player.id)
         player.x--;
-      //if (block.type == blockTypes.PLAYER && block.id == player.id) console.log('Found player');
     }); 
   };
   this.moveTesRight = function(playerId) {
@@ -122,6 +121,15 @@ module.exports = function PlayerControls(worldArray) {
         player.x++;
     }); 
 
+  };
+  this.zoomToGround = function(playerId) {
+    var player = worldArray.getPlayer(playerId);
+    for (var i = player.height; i <= 100; i++) {
+      if (worldArray.getBlock(player.x, player.y + i) != null) {
+        player.y = player.y + (i - player.height);
+        return;
+      }
+    }
   };
   // this.getPlayer = function() {
   //   //Re-add our reference to the player

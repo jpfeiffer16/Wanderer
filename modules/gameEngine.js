@@ -118,6 +118,9 @@ module.exports = function(worldArray) {
     },
     moveTesRight: function() {
       playerControls.moveTesRight(player.id);
+    },
+    zoomToGround: function() {
+      playerControls.zoomToGround(player.id);
     }
   };
   
