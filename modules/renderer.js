@@ -134,13 +134,6 @@ module.exports = function(terrain) {
     }
   });
   self.render = function() {
-    //Generate a cache for rendering
-    var cache = {}; 
-    for (var i = 0; i < worldArray.length; i++) {
-      var item = worldArray[i];
-      cache[item.x + '_' + item.y] = item;
-    }
-
     var playerCoords = self.utilities.getPlayerCoords();
     if (playerCoords.x > screenOffsetX + screen.width - 30) {
       if (self.playerControls != undefined) {
@@ -167,13 +160,15 @@ module.exports = function(terrain) {
       screenOffsetX = playerCoords.x - 40;
       screenOffsetY = playerCoords.y - 20;
     }
+    var blocksToRender = [];
     for (var i = 0; i < worldArray.length; i++) {
       var item = worldArray[i];
       if (item.x > screenOffsetX && item.x < screenOffsetX + screen.width &&
           item.y > screenOffsetY && item.y < screenOffsetY + screen.height) {
         if (item.changed || item.changed == undefined || worldArray.refreshScreen || 
           item.x != item._x || item.y != item._y) {
-          renderBlock(item, cache);
+          whiteBlock(item);
+          blocksToRender.push(item);
         }
       }
       item._x = item.x;
@@ -187,6 +182,9 @@ module.exports = function(terrain) {
       }
       worldArray.blocksToDelete = [];
     }
+    blocksToRender.forEach(function(thisBlock) {
+      renderBlock(thisBlock); 
+    });
     worldArray.refreshScreen = false;
   }
 
@@ -195,19 +193,19 @@ module.exports = function(terrain) {
   self.autoRender = function () {
     setInterval(self.render, 50);
   }
-  function renderBlock(block, cache) {
-    //Render it here
+  function whiteBlock(block) {
+    //White it here
     if (block._x != undefined && block._y != undefined) {
-      //if (worldArray.getBlock(block._x, block._y) == null) {
-      if (cache[block._x + '_' + block._y] == undefined) {
-        for (var i = 0; i < block.width; i++) {
-          for (var j = 0; j < block.height; j++) {
-            program.move(block._x + i - screenOffsetX, block._y + j - screenOffsetY - 1);
-            program.write(' ');
-          }
+      for (var i = 0; i < block.width; i++) {
+        for (var j = 0; j < block.height; j++) {
+          program.move(block._x + i - screenOffsetX, block._y + j - screenOffsetY - 1);
+          program.write(' ');
         }
       }
     }
+  }
+  function renderBlock(block) {
+    //Render it here
     var rep = Blocks.getBlock(block.type).rep;
     for (var i = 0; i < rep.length; i++) {
       program.move(block.x - screenOffsetX, block.y + i - screenOffsetY - 1);
