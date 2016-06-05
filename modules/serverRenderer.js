@@ -1,6 +1,6 @@
 var Blocks = require('../types/blocks'),
     blockTypes = Blocks.blockTypes,
-    io = require('socket.io')(3030),
+    io = require('socket.io')(process.env.PORT || 3030),
     logger = require('./logger'),
     PlayerControls = require('./playerControls');
 
