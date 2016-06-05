@@ -9,7 +9,6 @@ function getTesStructures(worldArray) {
     world.push(block);
   });
 
-
   var blocks = world.getBlocksInRegion(0, 0, 300, 40);
   var tesBlocks = blocks.filter(function(block) {
     return block.type == blockTypes.TESSERACT;
