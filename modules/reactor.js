@@ -1,6 +1,6 @@
 //DESCRIPTION: This is the module that will take the place of the game engine in multiplayer on client devices.
 //It will contain a mock playerControls object that will simply relay the changes to the server via websockets.
-var logger = require('./logger');
+//var logger = require('./logger');
 module.exports = function(worldArray, server) {
   var socket = require('socket.io-client')(server);
   var player = worldArray.getPlayer();
@@ -12,7 +12,7 @@ module.exports = function(worldArray, server) {
       worldArray.restoreFromJson(JSON.stringify(data.world));
       currentPlayerId = data.playerId;
       player = worldArray.getPlayer(data.playerId);
-      logger.log('Got Player: ' + data.playerId);
+      //logger.log('Got Player: ' + data.playerId);
     });
     socket.on('blocks changed', function(blocks) {
       for (var i = 0; i < blocks.length; i++) {
