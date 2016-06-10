@@ -7,3 +7,4 @@ node_modules/**
 world*.json
 log.txt
 bin/
+client-dist/*

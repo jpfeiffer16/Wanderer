@@ -11,9 +11,13 @@
   "license": "ISC",
   "dependencies": {
     "blessed": "^0.1.81",
+    "express": "^4.13.4",
+    "gulp-util": "^3.0.7",
     "node-uuid": "^1.4.7",
     "socket.io": "^1.4.5",
-    "socket.io-client": "^1.4.5"
+    "socket.io-client": "^1.4.5",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
   },
   "devDependencies": {
     "browserify": "^13.0.0",
