@@ -1,8 +1,8 @@
 var Blocks = require('./blocks'),
-    Loader = require('../modules/loader'),
+    //Loader = require('../modules/loader'),
     blockTypes = Blocks.blockTypes,
-    uuid = require('node-uuid'),
-    logger = require('../modules/logger');
+    uuid = require('node-uuid');
+    //logger = require('../modules/logger');
 module.exports = (function() {
   function World() {
     var world = Object.create(Array.prototype);
@@ -164,9 +164,9 @@ module.exports = (function() {
       }
     },
     saveJson: function() {
-      Loader.saveFile('./world.json', JSON.stringify(this), function() {
-        console.log('Done saving');
-      });
+      // Loader.saveFile('./world.json', JSON.stringify(this), function() {
+      //   console.log('Done saving');
+      // });
       // return JSON.stringify(worldArray);
     },
     restoreFromJson: function (json) {
@@ -179,14 +179,14 @@ module.exports = (function() {
         }
         return;
       }
-      Loader.loadFile('./world.json', function(data) {
-        self.length = 0;
-        var blocks = JSON.parse(data);
-        for (var i = 0; i < blocks.length; i++) {
-          self.push(blocks[i]);
-        }
-        self.refreshScreen = true;
-      });
+      // Loader.loadFile('./world.json', function(data) {
+      //   self.length = 0;
+      //   var blocks = JSON.parse(data);
+      //   for (var i = 0; i < blocks.length; i++) {
+      //     self.push(blocks[i]);
+      //   }
+      //   self.refreshScreen = true;
+      // });
     },
     restoreFromFile: function (path) {
       var self = this;

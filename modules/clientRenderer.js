@@ -13,7 +13,15 @@ module.exports = function(terrain) {
   self.worldArray = terrain;
 
   self.render = function() {
-    
+    worldArray.forEach(function (block) {
+      renderCtx.fillStyle = "rgb(0,0,0)";
+      renderCtx.fillRect (
+          blockToPoints(block.x),
+          blockToPoints(block.y),
+          blockToPoints(block.width),
+          blockToPoints(block.height)
+        );
+    });
     requestAnimationFrame(self.render);
   }
 
@@ -24,8 +32,9 @@ module.exports = function(terrain) {
 };
 
 function setUpCanvas(canvasId) {
-  if (document.getElementById(canvasId) == null) {
-    var canvas = document.createElement('canvas');
+  var canvas = document.getElementById(canvasId);
+  if (canvas == null) {
+    canvas = document.createElement('canvas');
     canvas.wdith = 500;
     canvas.height = 300;
     document.getElementsByTagName('body')[0].appendChild(canvas);
@@ -34,10 +43,7 @@ function setUpCanvas(canvasId) {
 }
 
 //Returns an object with the x and y canvas points of a block
-function blockToPoints(x, y) {
+function blockToPoints(point) {
   var factor = 10;
-  return {
-    x: x * factor,
-    y: y * factor
-  }
+  return point * factor;
 }
