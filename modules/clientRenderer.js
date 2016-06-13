@@ -105,10 +105,10 @@ module.exports = function(terrain) {
 
   self.render = function() {
     var playerCoords = self.utilities.getPlayerCoords();
-    //screenOffsetX = Math.round(playerCoords.x - (pointsToBlock(renderCtx.canvas.width / 2)));
-    //screenOffsetY = Math.round(playerCoords.y - (pointsToBlock(renderCtx.canvas.height / 2)));
-    screenOffsetX = playerCoords.x - 10;
-    screenOffsetY = playerCoords.y - 10;
+    screenOffsetX = Math.round(playerCoords.x - (pointsToBlock(renderCtx.canvas.width / 2)));
+    screenOffsetY = Math.round(playerCoords.y - (pointsToBlock(renderCtx.canvas.height / 2)));
+    //screenOffsetX = playerCoords.x - 10;
+    //screenOffsetY = playerCoords.y - 10;
     var screenMinX = screenOffsetX;
     var screenMaxX = screenOffsetX + pointsToBlock(renderCtx.canvas.width);
     //var screenMaxX = screenOffsetX + 100;
@@ -127,8 +127,8 @@ module.exports = function(terrain) {
           image.src = block.imageRep;
           renderCtx.drawImage(
               image,
-              blockToPoints(block.x) - screenOffsetX,
-              blockToPoints(block.y) - screenOffsetY,
+              blockToPoints(block.x - screenOffsetX),
+              blockToPoints(block.y - screenOffsetY),
               blockToPoints(block.width),
               blockToPoints(block.height)
             );
@@ -141,8 +141,8 @@ module.exports = function(terrain) {
             image.src = block.imageRep;
             renderCtx.drawImage(
                 image,
-                blockToPoints(block.x) - screenOffsetX - 100,
-                blockToPoints(block.y) - screenOffsetY - 100,
+                blockToPoints(block.x - screenOffsetX),
+                blockToPoints(block.y - screenOffsetY),
                 blockToPoints(block.width),
                 blockToPoints(block.height)
               );
@@ -151,8 +151,8 @@ module.exports = function(terrain) {
           }
         } else {
           renderCtx.fillRect (
-              blockToPoints(block.x) - screenOffsetX,
-              blockToPoints(block.y) - screenOffsetY,
+              blockToPoints(block.x - screenOffsetX),
+              blockToPoints(block.y - screenOffsetY),
               blockToPoints(block.width),
               blockToPoints(block.height)
             );
