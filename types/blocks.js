@@ -5,6 +5,7 @@ var blocks = {
        'x',
        '|'
      ],
+     imageRep: 'player.png',
      properties: {
        height: 2,
        width: 1,

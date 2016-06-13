@@ -104,16 +104,60 @@ module.exports = function(terrain) {
   self.worldArray = terrain;
 
   self.render = function() {
+    var playerCoords = self.utilities.getPlayerCoords();
+    //screenOffsetX = Math.round(playerCoords.x - (pointsToBlock(renderCtx.canvas.width / 2)));
+    //screenOffsetY = Math.round(playerCoords.y - (pointsToBlock(renderCtx.canvas.height / 2)));
+    screenOffsetX = playerCoords.x - 10;
+    screenOffsetY = playerCoords.y - 10;
+    var screenMinX = screenOffsetX;
+    var screenMaxX = screenOffsetX + pointsToBlock(renderCtx.canvas.width);
+    //var screenMaxX = screenOffsetX + 100;
+    var screenMinY = screenOffsetY;
+    var screenMaxY = screenOffsetY + pointsToBlock(renderCtx.canvas.height);
+    //var screenMaxY = screenOffsetY + 100;
     renderCtx.clearRect(0, 0, renderCtx.canvas.width, renderCtx.canvas.height);
     worldArray.forEach(function (block) {
-
-      renderCtx.fillStyle = "rgb(0,0,0)";
-      renderCtx.fillRect (
-          blockToPoints(block.x),
-          blockToPoints(block.y),
-          blockToPoints(block.width),
-          blockToPoints(block.height)
-        );
+      if (block.x > screenMinX && block.x < screenMaxX &&
+          block.y > screenMinY && block.y < screenMaxY) {
+        renderCtx.fillStyle = "rgb(0,0,0)";
+        if (block.hasImageRep) 
+        {
+          //TODO: Image stuff here
+          var image = new Image();
+          image.src = block.imageRep;
+          renderCtx.drawImage(
+              image,
+              blockToPoints(block.x) - screenOffsetX,
+              blockToPoints(block.y) - screenOffsetY,
+              blockToPoints(block.width),
+              blockToPoints(block.height)
+            );
+        } else if (block.hasImageRep == undefined) {
+          var blockType = Blocks.getBlock(block.type);
+          if (blockType.imageRep != undefined) {
+            block.hasImageRep = true;
+            block.imageRep = blockType.imageRep;
+            var image = new Image();
+            image.src = block.imageRep;
+            renderCtx.drawImage(
+                image,
+                blockToPoints(block.x) - screenOffsetX - 100,
+                blockToPoints(block.y) - screenOffsetY - 100,
+                blockToPoints(block.width),
+                blockToPoints(block.height)
+              );
+          } else {
+            block.hasImageRep = false;
+          }
+        } else {
+          renderCtx.fillRect (
+              blockToPoints(block.x) - screenOffsetX,
+              blockToPoints(block.y) - screenOffsetY,
+              blockToPoints(block.width),
+              blockToPoints(block.height)
+            );
+        }
+      }
     });
     requestAnimationFrame(self.render);
   }
@@ -134,14 +178,27 @@ function setUpCanvas(canvasId) {
   }
   return canvas.getContext('2d');
 }
-
+var FACTOR = 6;
 //Returns an object with the x and y canvas points of a block
 function blockToPoints(point) {
-  var factor = 3;
-  return point * factor;
+  return point * FACTOR;
+}
+
+function pointsToBlock(blockPos) {
+  //var list = [];
+  //for (var i = 0; i < 400; i++) {
+  //  list.push(i * FACTOR);
+  //}
+  var point = blockPos / FACTOR; 
+  //list.forEach(function (blockCoord) {
+  //  if (blockCoord > point)
+  //    return blockCoord; 
+  //});
+  return Math.round(point);
 }
 
 function attatchKey(key, callback) {
+  //TODO: This should be fixed to use one event handler
   document.addEventListener('keydown', function(e) {
     if (e.key == key) callback();
   });
