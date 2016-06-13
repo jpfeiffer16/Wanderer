@@ -172,13 +172,13 @@ function setUpCanvas(canvasId) {
   var canvas = document.getElementById(canvasId);
   if (canvas == null) {
     canvas = document.createElement('canvas');
-    canvas.wdith = 500;
-    canvas.height = 300;
     document.getElementsByTagName('body')[0].appendChild(canvas);
   }
+  canvas.width = window.innerWidth - 20;
+  canvas.height = window.innerHeight - 20;
   return canvas.getContext('2d');
 }
-var FACTOR = 6;
+var FACTOR = Math.round(window.innerWidth / 106);
 //Returns an object with the x and y canvas points of a block
 function blockToPoints(point) {
   return point * FACTOR;
