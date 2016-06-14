@@ -99,6 +99,12 @@ module.exports = function(terrain) {
       self.playerControls.zoomToGround();
     }
   });
+  attatchKey('=', function() {
+    zoomCanvas(1);
+  });
+  attatchKey('-', function() {
+    zoomCanvas(-1);
+  });
 
   
   self.worldArray = terrain;
@@ -148,6 +154,12 @@ module.exports = function(terrain) {
               );
           } else {
             block.hasImageRep = false;
+            renderCtx.fillRect (
+                blockToPoints(block.x - screenOffsetX),
+                blockToPoints(block.y - screenOffsetY),
+                blockToPoints(block.width),
+                blockToPoints(block.height)
+              );
           }
         } else {
           renderCtx.fillRect (
@@ -167,7 +179,7 @@ module.exports = function(terrain) {
     requestAnimationFrame(self.render);
   }
 };
-
+//var prevWindowWidth = window.innerWidth.valueOf;
 function setUpCanvas(canvasId) {
   var canvas = document.getElementById(canvasId);
   if (canvas == null) {
@@ -176,12 +188,31 @@ function setUpCanvas(canvasId) {
   }
   canvas.width = window.innerWidth - 20;
   canvas.height = window.innerHeight - 20;
+
+  window.addEventListener('resize', function(e) {
+    //TODO: Do resizing logic here
+    //var dec = prevWindowWidth / window.innerWidth;
+    //FACTOR = Math.round(FACTOR * dec);
+    //prevWindowWidth = window.innerWidth.valueOf;
+  });
+
   return canvas.getContext('2d');
 }
 var FACTOR = Math.round(window.innerWidth / 106);
 //Returns an object with the x and y canvas points of a block
 function blockToPoints(point) {
   return point * FACTOR;
+}
+
+function zoomCanvas(direction) {
+  switch (direction) {
+    case 1:
+      FACTOR += 10;
+      break;
+    case -1:
+      FACTOR -= 10;
+      break;
+  }
 }
 
 function pointsToBlock(blockPos) {
