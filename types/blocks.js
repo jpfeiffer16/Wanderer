@@ -22,6 +22,7 @@ var blocks = {
   },
   3: {
     rep: ['-'],
+    imageRep: 'bullet.png',
     properties: {
       height: 1,
       width: 1,
