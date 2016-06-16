@@ -228,9 +228,18 @@ function pointsToBlock(blockPos) {
   return Math.round(point);
 }
 
-function attatchKey(key, callback) {
-  //TODO: This should be fixed to use one event handler
-  document.addEventListener('keydown', function(e) {
-    if (e.key == key) callback();
+var keys = [];
+
+document.addEventListener('keydown', function(e) {
+  //if (e.key == key) callback();
+  var matches = keys.filter(function(item) {
+    return item.key = e.key;
   });
+  matches.forEach(function(item) {
+    item.callback();
+  });
+});
+
+function attatchKey(key, callback) {
+  keys.push({key, callback});
 }
