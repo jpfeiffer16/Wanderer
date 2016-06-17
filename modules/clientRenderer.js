@@ -233,7 +233,7 @@ var keys = [];
 document.addEventListener('keydown', function(e) {
   //if (e.key == key) callback();
   var matches = keys.filter(function(item) {
-    return item.key = e.key;
+    return item.key == e.key;
   });
   matches.forEach(function(item) {
     item.callback();

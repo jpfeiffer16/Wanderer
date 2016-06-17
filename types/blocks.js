@@ -31,6 +31,7 @@ var blocks = {
   },
   4: {
     rep: ['|'],
+    imageRep: 'bomb.png',
     properties: {
       height: 1,
       width: 1,
@@ -39,6 +40,7 @@ var blocks = {
   },
   5: {
     rep: ['*'],
+    imageRep: 'tesseract.png',
     properties: {
       height: 1,
       width: 1,
