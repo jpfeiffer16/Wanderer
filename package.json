@@ -8,6 +8,7 @@
   },
   "scripts": {
     "postInstall": "gulp bundle",
+    "install": "gulp bundle",
     "build": "gulp bundle" 
   },
   "author": "Joe Pfeiffer",
