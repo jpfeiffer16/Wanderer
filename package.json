@@ -7,9 +7,7 @@
     "wanderer": "app.js"
   },
   "scripts": {
-    "postInstall": "gulp bundle",
-    "install": "gulp bundle",
-    "build": "gulp bundle" 
+    "install": "gulp bundle"
   },
   "author": "Joe Pfeiffer",
   "license": "ISC",

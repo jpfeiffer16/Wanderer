@@ -11,6 +11,8 @@ module.exports = function(terrain) {
   var screenOffsetY = 0;
   
   var renderCtx = setUpCanvas('game');
+  addLoader();
+  var loaderPresent = true;
 
   
   attatchKey('w', function() {
@@ -113,19 +115,17 @@ module.exports = function(terrain) {
     var playerCoords = self.utilities.getPlayerCoords();
     screenOffsetX = Math.round(playerCoords.x - (pointsToBlock(renderCtx.canvas.width / 2)));
     screenOffsetY = Math.round(playerCoords.y - (pointsToBlock(renderCtx.canvas.height / 2)));
-    //screenOffsetX = playerCoords.x - 10;
-    //screenOffsetY = playerCoords.y - 10;
     var screenMinX = screenOffsetX;
     var screenMaxX = screenOffsetX + pointsToBlock(renderCtx.canvas.width);
-    //var screenMaxX = screenOffsetX + 100;
     var screenMinY = screenOffsetY;
     var screenMaxY = screenOffsetY + pointsToBlock(renderCtx.canvas.height);
-    //var screenMaxY = screenOffsetY + 100;
     renderCtx.clearRect(0, 0, renderCtx.canvas.width, renderCtx.canvas.height);
     worldArray.forEach(function (block) {
       if (block.x > screenMinX && block.x < screenMaxX &&
           block.y > screenMinY && block.y < screenMaxY) {
         renderCtx.fillStyle = "rgb(0,0,0)";
+        if (block.type == blockTypes.PLAYER && loaderPresent)
+          removeLoader();
         if (block.hasImageRep) 
         {
           //TODO: Image stuff here
@@ -175,11 +175,9 @@ module.exports = function(terrain) {
   }
 
   self.autoRender = function () {
-    //setInterval(self.render, 50);
     requestAnimationFrame(self.render);
   }
 };
-//var prevWindowWidth = window.innerWidth.valueOf;
 function setUpCanvas(canvasId) {
   var canvas = document.getElementById(canvasId);
   if (canvas == null) {
@@ -198,6 +196,35 @@ function setUpCanvas(canvasId) {
 
   return canvas.getContext('2d');
 }
+
+function addLoader() {
+  var backdrop = document.createElement('div');
+  backdrop.id = 'loader';
+  backdrop.style.position = 'absolute';
+  backdrop.style.width = '100%';
+  backdrop.style.zIndex = '100';
+  backdrop.style.height = '100%';
+  backdrop.style.top = '0';
+  backdrop.style.left = '0';
+  backdrop.style.background = 'white';
+  backdrop.style.backgroundImage = 'url(loading.gif)';
+  backdrop.style.backgroundPosition = 'center';
+  backdrop.style.backgroundSize = '10%';
+  backdrop.style.backgroundRepeat = 'no-repeat';
+  document.body.appendChild(backdrop);
+}
+
+function removeLoader() {
+  (function check() {
+    var loader = document.getElementById('loader');
+    if (loader != null)
+      loader.remove()
+    else
+      setTimeout(check, 300);
+
+  })();
+}
+
 var FACTOR = Math.round(window.innerWidth / 106);
 //Returns an object with the x and y canvas points of a block
 function blockToPoints(point) {
@@ -216,15 +243,7 @@ function zoomCanvas(direction) {
 }
 
 function pointsToBlock(blockPos) {
-  //var list = [];
-  //for (var i = 0; i < 400; i++) {
-  //  list.push(i * FACTOR);
-  //}
   var point = blockPos / FACTOR; 
-  //list.forEach(function (blockCoord) {
-  //  if (blockCoord > point)
-  //    return blockCoord; 
-  //});
   return Math.round(point);
 }
 
