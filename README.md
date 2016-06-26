@@ -3,6 +3,12 @@
 # Wanderer
 A terminal based 2D open world game. Where you can build stuff, shoot stuff, and blow stuff up.
 
+##Web version
+> There is now a beta web version of the app available!
+If you browse to [wandererapp.herokuapp.com](https://wandererapp.herokuapp.com), you can try it out.
+
+Currently, the architecture is not very fast, so there may be some lag, but if there is enough interest in it, I will add more dynos.
+
 ##Installing
 Make sure you have `node` and `npm` installed.
 ```bash
@@ -81,12 +87,13 @@ Install dependencies
 ```bash
 $ npm install
 ```
-The directory structure of the app is currently pretty simple. Modules/Functionality is stored
-if `modules/`, types and utilities are stored in `types/`.
+The directory structure of the app is currently pretty simple. Modules/Functionality are stored
+in `modules/`, types and utilities are stored in `types/`, external processes (such as the structure analysis and tesseract monitor) are kept in `/proc`
 
 ##Notes
 Tested on:
 * Arch Linux tty terminal
+* Xterm on Arch linux
 * KDE Plasma Konsole on Arch Linux(Works but with some fonts are there display issues. Recomend the Terminus font)
 * LXDE LXTerminal on Arch Linux(Works but with some fonts are there display issues.)
 * Gnome Terminal on Ubuntu 15.04
