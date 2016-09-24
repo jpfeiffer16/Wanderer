@@ -25,6 +25,7 @@ if (process.argv[2] == 's') {
   //NOTE: Using this for now till we can get the ServerManager stable
   startGame(TerrainGen.genTerrain());                // <----------|
   function startGame(world) {
+    process.world = world;
     var renderer = new ServerRenderer(world);
     var gameEngine = new GameEngine(world, false);
     gameEngine.start();
