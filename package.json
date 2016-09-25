@@ -1,6 +1,6 @@
 {
   "name": "Wanderer",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A terminal based 2D open world game. Where you can build stuff, shoot stuff, and blow stuff up.",
   "main": "app.js",
   "bin": {
