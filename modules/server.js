@@ -13,7 +13,7 @@ module.exports = function(port) {
   //var upload = multer({ dest: 'uploads/' });
   var storage = multer.memoryStorage();
   var upload = multer({ storage: storage });
-  var path = __dirname.substring(0, __dirname.replace('\\', '/').lastIndexOf('/'));
+  var path = process.cwd();
   app.get('/', function (req, res) {
     res.sendFile(path + '/client/index.html');
   });
