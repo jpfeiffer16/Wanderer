@@ -3,13 +3,13 @@
 # Wanderer
 A terminal based 2D open world game. Where you can build stuff, shoot stuff, and blow stuff up.
 
-##Web version
+## Web version
 > There is now a beta web version of the app available!
 If you browse to [wandererapp.herokuapp.com](https://wandererapp.herokuapp.com), you can try it out.
 
 Currently, the architecture is not very fast, so there may be some lag, but if there is enough interest in it, I will add more dynos.
 
-##Installing
+## Installing
 Make sure you have `node` and `npm` installed.
 ```bash
 $ node -v
@@ -31,7 +31,7 @@ Now run the game and have some fun:
 ```bash
 $ wanderer
 ```
-##Controls
+## Controls
 > Note: Controls are not very well layed out currently since the game engine itself has been the
 priority. They are subject to possibly durastic change in the near future.
 
@@ -55,13 +55,13 @@ priority. They are subject to possibly durastic change in the near future.
 * `teleport to ground` - k
 
 
-##Multiplayer
+## Multiplayer
 Run the game with the `m` option and a url to the server you are joining:
 ```bash
 $ wanderer m http://<servername>.<domain>:<port>
 ```
 
-##Server Setup
+## Server Setup
 >Note: Currently the server setup is a little limited. With each run, a new world is generated
 and worlds cannot be saved. Changing this is a high priority, so there should be a WorldManager
 of sorts in the near future. The default port is `3030` and is not configurable currently.
@@ -72,7 +72,7 @@ $ wanderer s
 ```
 
 
-##For development
+## For development
 Fork the repo and clone it to your box.
 ```bash
 $ git clone <your_forked_repo>
@@ -90,7 +90,7 @@ $ npm install
 The directory structure of the app is currently pretty simple. Modules/Functionality are stored
 in `modules/`, types and utilities are stored in `types/`, external processes (such as the structure analysis and tesseract monitor) are kept in `/proc`
 
-##Notes
+## Notes
 Tested on:
 * Arch Linux tty terminal
 * Xterm on Arch linux
