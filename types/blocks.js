@@ -46,6 +46,15 @@ var blocks = {
       width: 1,
       gravity: true
     }
+  },
+  6: {
+    rep: ['#'],
+    imageRep: 'tnt.png',
+    properties: {
+      height: 1,
+      width: 1,
+      gravity: true
+    }
   }
 };
 
@@ -56,7 +65,8 @@ var BlockLoader = function() {
     DIRT: 1,
     BULLET: 3,
     BOMB: 4,
-    TESSERACT: 5
+    TESSERACT: 5,
+    TNT: 6
   };
   self.getBlock = function(blockId) {
     if (typeof(blockId) == 'number') {

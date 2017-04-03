@@ -89,6 +89,20 @@ module.exports = function PlayerControls(worldArray) {
     var player = worldArray.getPlayer(playerId);
     var bomb = worldArray.createBlock(blockTypes.BOMB, player.x, player.y + 1); 
   };
+  this.dropTnt = function (playerId) {
+    var player = worldArray.getPlayer(playerId);
+    var tnt = worldArray.createBlock(blockTypes.TNT, player.x, player.y + 1);
+    tnt.playerId = playerId;
+  };
+  this.detTnt = function(playerId) {
+    worldArray.filter(function(block) {
+      return (block.type == blockTypes.TNT) &&
+            (block.playerId == playerId);
+    }).forEach(function(block) {
+      var deletedBlock = worldArray.deleteBlockById(block.id);
+      worldArray.createBlock(blockTypes.BOMB, deletedBlock.x, deletedBlock.y);
+    });
+  };
   this.reRender = function(playerId) {
     worldArray.refreshScreen = true;
   };

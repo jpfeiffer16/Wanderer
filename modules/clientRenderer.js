@@ -80,6 +80,16 @@ module.exports = function(terrain) {
       self.playerControls.dropBomb();
     }
   });
+  attatchKey('t', function() {
+    if (self.playerControls != undefined) {
+      self.playerControls.dropTnt();
+    }
+  });
+  attatchKey('p', function() {
+    if (self.playerControls != undefined) {
+      self.playerControls.detTnt();
+    }
+  });
   attatchKey('b', function() {
     if (self.playerControls != undefined) {
       self.playerControls.dropTes();

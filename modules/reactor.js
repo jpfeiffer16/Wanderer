@@ -92,6 +92,12 @@ module.exports = function(worldArray, server) {
     dropBomb: function () {
       sendEvent('dropBomb');
     },
+    dropTnt: function() {
+      sendEvent('dropTnt');
+    },
+    detTnt: function() {
+      sendEvent('detTnt');
+    },
     reRender: function() {
       worldArray.refreshScreen = true;
     },

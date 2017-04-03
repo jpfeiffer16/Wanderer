@@ -103,6 +103,12 @@ module.exports = function(worldArray) {
     dropBomb: function () {
       playerControls.dropBomb(player.id);
     },
+    dropTnt: function () {
+      playerControls.dropTnt(player.id);
+    },
+    detTnt: function () {
+      playerControls.detTnt(player.id);
+    },
     reRender: function() {
       worldArray.refreshScreen = true;
     },

@@ -93,6 +93,16 @@ module.exports = function(terrain) {
       self.playerControls.dropBomb();
     }
   });
+  screen.key('t', function() {
+    if (self.playerControls != undefined) {
+      self.playerControls.dropTnt();
+    }
+  });
+  screen.key('p', function() {
+    if (self.playerControls != undefined) {
+      self.playerControls.detTnt();
+    }
+  });
   screen.key('m', function() {
     if (self.playerControls != undefined) {
       worldArray.saveJson();

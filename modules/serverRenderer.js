@@ -107,6 +107,18 @@ module.exports = function(terrain) {
         playerControls.dropBomb(player.id);
       }
     });
+    socket.on('dropTnt', function(data) {
+      var player = worldArray.getPlayer(data.playerId);
+      if (player != null) {
+        playerControls.dropTnt(data.playerId);
+      }
+    });
+    socket.on('detTnt', function(data) {
+      var player = worldArray.getPlayer(data.playerId);
+      if (player != null) {
+        playerControls.detTnt(data.playerId);
+      }
+    });
     socket.on('dropTes', function(data) {
       var player = worldArray.getPlayer(data.playerId);
       if (player != null) {
