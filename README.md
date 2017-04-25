@@ -48,6 +48,8 @@ priority. They are subject to possibly durastic change in the near future.
 * `shoot left` - u
 * `shoot right` - i
 * `drop bomb` - h
+* `drop tnt` - t
+* `detonate tnt` - p
 * `re-render screen` - y
 * `drop tesseract` - b
 * `move tesseract left` - j
