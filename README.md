@@ -90,14 +90,14 @@ Install dependencies
 $ npm install
 ```
 The directory structure of the app is currently pretty simple. Modules/Functionality are stored
-in `modules/`, types and utilities are stored in `types/`, external processes (such as the structure analysis and tesseract monitor) are kept in `/proc`
+in `modules/`, types and utilities are stored in `types/`, external processes (such as the structure analysis and tesseract monitor) are kept in `proc/`
 
 ## Notes
 Tested on:
 * Arch Linux tty terminal
 * Xterm on Arch linux
-* KDE Plasma Konsole on Arch Linux(Works but with some fonts are there display issues. Recomend the Terminus font)
-* LXDE LXTerminal on Arch Linux(Works but with some fonts are there display issues.)
+* KDE Plasma Konsole on Arch Linux(Works but with some fonts there are display issues. Recomend the Terminus font)
+* LXDE LXTerminal on Arch Linux(Works but with some fonts there are  display issues.)
 * Gnome Terminal on Ubuntu 15.04
 * Windows 7 Command Prompt
 * Windows 10 Command Prompt(A few input issues noticed)
