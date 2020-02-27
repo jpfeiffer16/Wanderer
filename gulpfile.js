@@ -40,7 +40,7 @@ var customOpts = {
   debug: true
 };
 gulp.task('bundle', function() {
-  bundle();
+  return bundle();
 }); // so you can run `gulp js` to build the file
 gulp.task('watch', function() {
   // add custom browserify options here
