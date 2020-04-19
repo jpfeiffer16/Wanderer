@@ -134,8 +134,24 @@ module.exports = function PlayerControls(worldArray) {
       if (block.type == blockTypes.PLAYER && block.id == player.id)
         player.x++;
     }); 
-
   };
+  this.rotateTes = function(playerId) {
+    var player = worldArray.getPlayer(playerId);
+    if (process.tesList == undefined) return;
+    var tesList = process.tesList[playerId];
+    if (tesList == undefined) return;
+    var refBlocks = tesList.map(b => worldArray.getBlockById(b.id)).filter(b => b);
+    // var maxX = Math.max.apply(null, tesList.map(t => t.x));
+    // var minX = Math.min.apply(null, tesList.map(t => t.y));
+    var maxX = Math.max.apply(null, refBlocks.map(t => t.x));
+    var minX = Math.min.apply(null, refBlocks.map(t => t.x));
+    tesList.forEach(function(block) {
+      var refBlock = worldArray.getBlockById(block.id);
+      if (refBlock != null) refBlock.x = minX + (maxX - refBlock.x);
+      if (block.type == blockTypes.PLAYER && block.id == player.id)
+        player.x = minX + (maxX - player.x);
+    }); 
+  }
   this.zoomToGround = function(playerId) {
     var player = worldArray.getPlayer(playerId);
     for (var i = player.height; i <= 100; i++) {

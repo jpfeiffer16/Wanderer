@@ -137,6 +137,12 @@ module.exports = function(terrain) {
         playerControls.moveTesRight(player.id);
       }
     });
+    socket.on('rotateTes', function(data) {
+      var player = worldArray.getPlayer(data.playerId);
+      if (player != null) {
+        playerControls.rotateTes(player.id);
+      }
+    });
     socket.on('zoomToGround', function(data) {
       var player = worldArray.getPlayer(data.playerId);
       if (player != null) {

@@ -125,6 +125,9 @@ module.exports = function(worldArray) {
     moveTesRight: function() {
       playerControls.moveTesRight(player.id);
     },
+    rotateTes: function() {
+      playerControls.rotateTes(player.id);
+    },
     zoomToGround: function() {
       playerControls.zoomToGround(player.id);
     }

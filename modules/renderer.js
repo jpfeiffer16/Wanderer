@@ -130,6 +130,9 @@ module.exports = function(terrain) {
       self.playerControls.moveTesRight();
     }
   });
+  screen.key('m', function() {
+    self.playerControls.rotateTes();
+  });
   screen.key('l', function() {
 
     if (self.playerControls != undefined) {

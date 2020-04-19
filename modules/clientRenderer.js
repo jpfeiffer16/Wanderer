@@ -105,6 +105,11 @@ module.exports = function(terrain) {
       self.playerControls.moveTesRight();
     }
   });
+  attatchKey('m', function() {
+    if (self.playerControls != undefined) {
+      self.playerControls.rotateTes();
+    }
+  })
   attatchKey('l', function() {
 
     if (self.playerControls != undefined) {

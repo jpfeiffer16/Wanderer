@@ -113,6 +113,9 @@ module.exports = function(worldArray, server) {
     moveTesRight: function() {
       sendEvent('moveTesRight');
     },
+    rotateTes: function() {
+      sendEvent('rotateTes')
+    },
     zoomToGround: function() {
       sendEvent('zoomToGround');
     }

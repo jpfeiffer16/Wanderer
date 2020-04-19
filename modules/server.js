@@ -5,7 +5,7 @@ module.exports = function(port) {
   var bodyparser = require('body-parser');
   var app = express();
   var server = require('http').Server(app);
-  app.use(express.static('client-dist'));
+  app.use(express.static('bin'));
   app.use(express.static('images'));
   //app.use(bodyparser.urlencoded({ extended: false }));
   //var parser = bodyparser.urlencoded({ extended: false });
