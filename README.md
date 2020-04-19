@@ -54,6 +54,7 @@ priority. They are subject to possibly durastic change in the near future.
 * `drop tesseract` - b
 * `move tesseract left` - j
 * `move tesseract right` - k
+* `rotate tesseract` - m
 * `teleport to ground` - k
 
 
