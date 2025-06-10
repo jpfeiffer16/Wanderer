@@ -16,7 +16,7 @@
     "body-parser": "^1.19.0",
     "browserify": "^16.5.0",
     "express": "^5.1.0",
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.1",
     "gulp-util": "^3.0.8",
     "multer": "^2.0.1",
     "nexe": "4.0.0-rc.1",
@@ -24,7 +24,7 @@
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
     "vinyl-source-stream": "^2.0.0",
-    "watchify": "^3.11.1"
+    "watchify": "^4.0.0"
   },
   "devDependencies": {}
 }
